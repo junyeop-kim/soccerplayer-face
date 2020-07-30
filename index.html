@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="style.css" />
+        <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+        <script
+            type="text/javascript"
+            src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f221be22a20b6d1"
+        ></script>
+    </head>
+    <body>
+        <div id="title"><p class="image-source">Img from: https://cdn.dribbble.com</p></div>
+        <div>
+            <p class="sub-title">Let's find a similar soccer player with my photo.</p>
+        </div>
+        <script
+            class="jsbin"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+        ></script>
+        <div class="file-upload">
+            <button
+                class="file-upload-btn"
+                type="button"
+                onclick="$('.file-upload-input').trigger( 'click' )"
+            >
+                Add Image
+            </button>
+
+            <div class="image-upload-wrap">
+                <input
+                    class="file-upload-input"
+                    type="file"
+                    onchange="readURL(this);"
+                    accept="image/*"
+                />
+                <div class="drag-text">
+                    <h3>Upload your image</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+                <br />
+                <img id="result-Image" src="" />
+                <br />
+                <p class="result-Message-Two"></p>
+                <p class="result-Message-One"></p>
+                <a href="" id="result-link"><p class="more-detail">If you want to get player's Information, click here!</p></a>
+                <div id="label-container" class="d-flex flex-column justify-content-around"></div>
+                
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                <div class="addthis_inline_share_toolbox_ayv5"></div>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Retry with another image. 
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+            /*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+            (function () {
+                // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                    s = d.createElement('script');
+                s.src = 'https://soccerplayer.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript
+            >Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript
+        >
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.image-upload-wrap').hide();
+
+                        $('.file-upload-image').attr('src', e.target.result);
+                        $('.file-upload-content').show();
+
+                        $('.image-title').html(input.files[0].name);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                    init().then(() => {
+                        console.log('Hello');
+                        predict();
+                    });
+                } else {
+                    removeUpload();
+                }
+            }
+
+            function removeUpload() {
+                $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                $('.file-upload-content').hide();
+                $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                $('.image-upload-wrap').addClass('image-dropping');
+            });
+            $('.image-upload-wrap').bind('dragleave', function () {
+                $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+        <script type="text/javascript">
+            // More API functions here:
+            // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+            // the link to your model provided by Teachable Machine export panel
+            const URL = 'https://teachablemachine.withgoogle.com/models/dyVKGtzr9/';
+
+            let model, labelContainer, maxPredictions;
+
+            // Load the image model and setup the webcam
+            async function init() {
+                const modelURL = URL + 'model.json';
+                const metadataURL = URL + 'metadata.json';
+
+                // load the model and metadata
+                // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+                // or files from your local hard drive
+                // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+                labelContainer = document.getElementById('label-container');
+                for (let i = 0; i < maxPredictions; i++) {
+                    // and class labels
+                    labelContainer.appendChild(document.createElement('div'));
+                }
+            }
+            // run the webcam image through the image model
+            async function predict() {
+                // predict can take in an image, video or canvas html element
+                var image = document.getElementById('face-image');
+                const prediction = await model.predict(image, false);
+                prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+                console.log(prediction[0].className);
+                var resultMessageOne, resultMessageTwo;
+                var resultImage;
+                switch (prediction[0].className) {
+                    case 'Bale':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/AUT_vs._WAL_2016-10-06_%28155%29.jpg/220px-AUT_vs._WAL_2016-10-06_%28155%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Gareth_Bale';
+                        resultMessageOne = 'Gareth Bale';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Griezmann':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FRA-ARG_%2810%29.jpg/250px-FRA-ARG_%2810%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Antoine_Griezmann';
+                        resultMessageOne = 'Antoine Griezmann';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Neymar':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Bra-Cos_%281%29.jpg/220px-Bra-Cos_%281%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Neymar';
+                        resultMessageOne = 'Neymar da Silva Santos Júnior';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Lewandowski':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/c/c2/JAP-POL_%286%29_%28cropped%29_%28cropped%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Robert_Lewandowski';
+                        resultMessageOne = 'Robert Lewandowski';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Messi':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Lionel_Messi_20180626.jpg/220px-Lionel_Messi_20180626.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Lionel_Messi';
+                        resultMessageOne = 'Lionel Andrés Messi Cuccittini';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Özil':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mesut_%C3%96zil_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/220px-Mesut_%C3%96zil_at_Baku_before_2019_UEFA_Europe_League_Final.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Mesut_%C3%96zil';
+                        resultMessageOne = 'Mesut Özil';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Salah':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mohamed_Salah_2018.jpg/200px-Mohamed_Salah_2018.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Mohamed_Salah';
+                        resultMessageOne = 'Mohamed Salah Hamed Mahrous Ghaly';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Hazard':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Eden_Hazard_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/220px-Eden_Hazard_at_Baku_before_2019_UEFA_Europe_League_Final.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Eden_Hazard';
+                        resultMessageOne = 'Eden Michael Hazard';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Rooney':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Zarya-MU_%286%29.jpg/220px-Zarya-MU_%286%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Wayne_Rooney';
+                        resultMessageOne = 'Wayne Mark Rooney';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Mbappé':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93129_%28cropped%29.jpg/200px-2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93129_%28cropped%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Kylian_Mbapp%C3%A9';
+                        resultMessageOne = 'Kylian Mbappé Lottin';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Ibrahimović':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Zlatan_Ibrahimovi%C4%87_June_2018.jpg/200px-Zlatan_Ibrahimovi%C4%87_June_2018.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Zlatan_Ibrahimovi%C4%87';
+                        resultMessageOne = 'Zlatan Ibrahimović';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Dybala':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/2017_FRIENDLY_MATCH_RUSSIA_v_ARGENTINA_-_Paulo_Dybala_01.jpg/220px-2017_FRIENDLY_MATCH_RUSSIA_v_ARGENTINA_-_Paulo_Dybala_01.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Paulo_Dybala';
+                        resultMessageOne = 'Paulo Bruno Exequiel Dybala';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'deGea':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/David_de_Gea_2017.jpg/220px-David_de_Gea_2017.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/David_de_Gea';
+                        resultMessageOne = 'David de Gea Quintana';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'DavidLuiz':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/David_Luiz_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/220px-David_Luiz_at_Baku_before_2019_UEFA_Europe_League_Final.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/David_Luiz';
+                        resultMessageOne = 'David Luiz Moreira Marinho';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'DavidSilva':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/David_Silva_2017.jpg/220px-David_Silva_2017.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/David_Silva';
+                        resultMessageOne = 'David Josué Jiménez Silva';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'DeleAlli':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3708_by_Stepro.jpg/220px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3708_by_Stepro.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Dele_Alli';
+                        resultMessageOne = 'Bamidele Jermaine Alli';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'DiegoCosta':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Diego_Costa_2019.jpg/200px-Diego_Costa_2019.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Diego_Costa';
+                        resultMessageOne = 'Diego da Silva Costa';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Rakitić':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/0/0c/Ivan_Rakiti%C4%87_%28cropped%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Ivan_Rakiti%C4%87';
+                        resultMessageOne = 'Ivan Rakitić';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Neuer':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/20180602_FIFA_Friendly_Match_Austria_vs._Germany_Manuel_Neuer_850_0723.jpg/220px-20180602_FIFA_Friendly_Match_Austria_vs._Germany_Manuel_Neuer_850_0723.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Manuel_Neuer';
+                        resultMessageOne = 'Manuel Peter Neuer';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Marcelo':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_16.jpg/220px-FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_16.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Marcelo_(footballer,_born_1988)';
+                        resultMessageOne = 'Marcelo Vieira da Silva Júnior';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Minamino':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/FC_Admira_Wacker_M%C3%B6dling_vs._FC_Red_Bull_Salzburg_2018-04-15_%28061%29.jpg/220px-FC_Admira_Wacker_M%C3%B6dling_vs._FC_Red_Bull_Salzburg_2018-04-15_%28061%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Takumi_Minamino';
+                        resultMessageOne = 'Takumi Minamino';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Ramos':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_09.jpg/215px-FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_09.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Sergio_Ramos';
+                        resultMessageOne = 'Sergio Ramos García';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Agüero':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ag%C3%BCero_in_2018.jpg/220px-Ag%C3%BCero_in_2018.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Sergio_Ag%C3%BCero';
+                        resultMessageOne = 'Sergio Leonel Agüero del Castillo';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Son':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Team_Korea_Russia_WorldCup_02_%28cropped%29.png/220px-Team_Korea_Russia_WorldCup_02_%28cropped%29.png';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Son_Heung-min';
+                        resultMessageOne = 'Son Heung-min';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Suárez':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Luis_Su%C3%A1rez_2018.jpg/200px-Luis_Su%C3%A1rez_2018.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Luis_Su%C3%A1rez';
+                        resultMessageOne = 'Luis Alberto Suárez Díaz';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Arnold':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Trent_Alexander-Arnold_2018.jpg/200px-Trent_Alexander-Arnold_2018.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Trent_Alexander-Arnold';
+                        resultMessageOne = 'Trent John Alexander-Arnold';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'LeeGangIn':
+                        document.getElementById('result-Image').src =
+                            'https://koreajoongangdaily.joins.com/jmnet/koreajoongangdaily/_data/photo/2019/06/16192741.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Lee_Kang-in';
+                        resultMessageOne = 'Lee Kang-in';
+                        resultMessageTwo = 'Image Source: https://koreajoongangdaily.joins.com';
+                        break;
+                    case 'Lloris':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3687_by_Stepro.jpg/200px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3687_by_Stepro.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Hugo_Lloris';
+                        resultMessageOne = 'Hugo Hadrien Dominique Lloris';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'LeeSeungWoo':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Team_Korea_Russia_WorldCup_11_%28cropped%29.jpg/220px-Team_Korea_Russia_WorldCup_11_%28cropped%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Lee_Seung-woo';
+                        resultMessageOne = 'Lee Seung-woo';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Piqué':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/GerardPique.jpg/220px-GerardPique.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Gerard_Piqu%C3%A9';
+                        resultMessageOne = 'Gerard Piqué Bernabeu';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Reus':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/20180602_FIFA_Friendly_Match_Austria_vs._Germany_Marco_Reus_850_0626.jpg/220px-20180602_FIFA_Friendly_Match_Austria_vs._Germany_Marco_Reus_850_0626.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Marco_Reus';
+                        resultMessageOne = 'Marco Reus';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'DeBruyne':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kevin_De_Bruyne_201807091.jpg/220px-Kevin_De_Bruyne_201807091.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Kevin_De_Bruyne';
+                        resultMessageOne = 'Kevin De Bruyne';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'BaekSeungHo':
+                        document.getElementById('result-Image').src =
+                            'https://tmssl.akamaized.net/images/portrait/big/282689-1567158664.jpg?lm=1567158687';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Paik_Seung-ho';
+                        resultMessageOne = 'Paik Seung-ho';
+                        resultMessageTwo = 'Image Source: https://tmssl.akamaized.net';
+                        break;
+                    case 'Kubo':
+                        document.getElementById('result-Image').src =
+                            'https://www.realmadrid.com/img/vertical_380px/kubo_2vc5655_20190716115027.jpg';
+                        document.getElementById('result-link').href = 'https://www.realmadrid.com';
+                        resultMessageOne = 'Takefusa Kubo';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Firmino':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Roberto_Firmino_850_1557.jpg/220px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Roberto_Firmino_850_1557.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Roberto_Firmino';
+                        resultMessageOne = 'Roberto Firmino Barbosa de Oliveira';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'VanDyke':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/20160604_AUT_NED_8876_%28cropped%29.jpg/220px-20160604_AUT_NED_8876_%28cropped%29.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Virgil_van_Dijk';
+                        resultMessageOne = 'Virgil van Dijk';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'Rodriguez':
+                        document.getElementById('result-Image').src =
+                            'https://en.wikipedia.org/wiki/James_Rodr%C3%ADguez';
+                        document.getElementById('result-link').href =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/James_Rodriguez_2018.jpg/220px-James_Rodriguez_2018.jpg';
+                        resultMessageOne = 'James David Rodríguez Rubio';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'HarryKane':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Harry_Kane_in_Russia_2.jpg/220px-Harry_Kane_in_Russia_2.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Harry_Kane';
+                        resultMessageOne = 'Harry Edward Kane';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    case 'HwangHeeChan':
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/FC_RB_Salzburg_gegen_Wolfsberger_AC_%2810._August_2019%29_27.jpg/220px-FC_RB_Salzburg_gegen_Wolfsberger_AC_%2810._August_2019%29_27.jpg';
+                        document.getElementById('result-link').href =
+                            'https://en.wikipedia.org/wiki/Hwang_Hee-chan';
+                        resultMessageOne = 'Hwang Hee-chan';
+                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
+                        break;
+                    default:
+                        resultMessageOne =
+                            'We cannot find any soccer player. Please upload another image.';
+                }
+                $('.result-Message-Two').html(resultMessageTwo);
+                $('.result-Message-One').html(resultMessageOne);
+                var barWidth;
+                for (let i = 0; i < maxPredictions; i++) {
+                    if (prediction[i].probability.toFixed(2) > 0.1) {
+                        barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + '%';
+                    } else if (prediction[i].probability.toFixed(2) >= 0.01) {
+                        barWidth = '4%';
+                    } else {
+                        barWidth = '2%';
+                    }
+                    var labelTitleOne;
+                    var labelTitleTwo;
+                    var labelTitleThree;
+                    switch (prediction[0].className) {
+                        case 'Bale':
+                            labelTitleOne = 'Bale';
+                            break;
+                        case 'Griezmann':
+                            labelTitleOne = 'Griezmann';
+                            break;
+                        case 'Neymar':
+                            labelTitleOne = 'Neymar';
+                            break;
+                        case 'Lewandowski':
+                            labelTitleOne = 'Lewandowski';
+                            break;
+                        case 'Messi':
+                            labelTitleOne = 'Messi';
+                            break;
+                        case 'Özil':
+                            labelTitleOne = 'Özil';
+                            break;
+                        case 'Salah':
+                            labelTitleOne = 'Salah';
+                            break;
+                        case 'Hazard':
+                            labelTitleOne = 'Hazard';
+                            break;
+                        case 'Rooney':
+                            labelTitleOne = 'Rooney';
+                            break;
+                        case 'Mbappé':
+                            labelTitleOne = 'Mbappé';
+                            break;
+                        case 'Ibrahimović':
+                            labelTitleOne = 'Ibrahimović';
+                            break;
+                        case 'Dybala':
+                            labelTitleOne = 'Dybala';
+                            break;
+                        case 'deGea':
+                            labelTitleOne = 'De Gea';
+                            break;
+                        case 'DavidLuiz':
+                            labelTitleOne = 'David Luiz';
+                            break;
+                        case 'DavidSilva':
+                            labelTitleOne = 'David Silva';
+                            break;
+                        case 'DeleAlli':
+                            labelTitleOne = 'Alli';
+                            break;
+                        case 'DiegoCosta':
+                            labelTitleOne = 'Diego Costa';
+                            break;
+                        case 'Rakitić':
+                            labelTitleOne = 'Rakitić';
+                            break;
+                        case 'Neuer':
+                            labelTitleOne = 'Neuer';
+                            break;
+                        case 'Marcelo':
+                            labelTitleOne = 'Marcelo';
+                            break;
+                        case 'Minamino':
+                            labelTitleOne = 'Minamino';
+                            break;
+                        case 'Ramos':
+                            labelTitleOne = 'Ramos';
+                            break;
+                        case 'Agüero':
+                            labelTitleOne = 'Agüero';
+                            break;
+                        case 'Son':
+                            labelTitleOne = 'Son Heung-min';
+                            break;
+                        case 'Suárez':
+                            labelTitleOne = 'Suárez';
+                            break;
+                        case 'Arnold':
+                            labelTitleOne = 'Alexander-Arnold';
+                            break;
+                        case 'LeeGangIn':
+                            labelTitleOne = 'Lee Kang-in';
+                            break;
+                        case 'Lloris':
+                            labelTitleOne = 'Lloris';
+                            break;
+                        case 'LeeSeungWoo':
+                            labelTitleOne = 'Lee Seung-woo';
+                            break;
+                        case 'Piqué':
+                            labelTitleOne = 'Piqué';
+                            break;
+                        case 'Reus':
+                            labelTitleOne = 'Reus';
+                            break;
+                        case 'DeBruyne':
+                            labelTitleOne = 'De Bruyne';
+                            break;
+                        case 'BaekSeungHo':
+                            labelTitleOne = 'Paik Seung-ho';
+                            break;
+                        case 'Kubo':
+                            labelTitleOne = 'Kubo';
+                            break;
+                        case 'Firmino':
+                            labelTitleOne = 'Firmino';
+                            break;
+                        case 'VanDyke':
+                            labelTitleOne = 'Van Dijk';
+                            break;
+                        case 'Rodriguez':
+                            labelTitleOne = 'Rodríguez';
+                            break;
+                        case 'HarryKane':
+                            labelTitleOne = 'Harry Kane';
+                            break;
+                        case 'HwangHeeChan':
+                            labelTitleOne = 'Hwang Hee-chan';
+                            break;
+                        default:
+                            labelTitleOne = '-';
+                    }
+                    switch (prediction[1].className) {
+                        case 'Bale':
+                            labelTitleTwo = 'Bale';
+                            break;
+                        case 'Griezmann':
+                            labelTitleTwo = 'Griezmann';
+                            break;
+                        case 'Neymar':
+                            labelTitleTwo = 'Neymar';
+                            break;
+                        case 'Lewandowski':
+                            labelTitleTwo = 'Lewandowski';
+                            break;
+                        case 'Messi':
+                            labelTitleTwo = 'Messi';
+                            break;
+                        case 'Özil':
+                            labelTitleTwo = 'Özil';
+                            break;
+                        case 'Salah':
+                            labelTitleTwo = 'Salah';
+                            break;
+                        case 'Hazard':
+                            labelTitleTwo = 'Hazard';
+                            break;
+                        case 'Rooney':
+                            labelTitleTwo = 'Rooney';
+                            break;
+                        case 'Mbappé':
+                            labelTitleTwo = 'Mbappé';
+                            break;
+                        case 'Ibrahimović':
+                            labelTitleTwo = 'Ibrahimović';
+                            break;
+                        case 'Dybala':
+                            labelTitleTwo = 'Dybala';
+                            break;
+                        case 'deGea':
+                            labelTitleTwo = 'De Gea';
+                            break;
+                        case 'DavidLuiz':
+                            labelTitleTwo = 'David Luiz';
+                            break;
+                        case 'DavidSilva':
+                            labelTitleTwo = 'David Silva';
+                            break;
+                        case 'DeleAlli':
+                            labelTitleTwo = 'Alli';
+                            break;
+                        case 'DiegoCosta':
+                            labelTitleTwo = 'Diego Costa';
+                            break;
+                        case 'Rakitić':
+                            labelTitleTwo = 'Rakitić';
+                            break;
+                        case 'Neuer':
+                            labelTitleTwo = 'Neuer';
+                            break;
+                        case 'Marcelo':
+                            labelTitleTwo = 'Marcelo';
+                            break;
+                        case 'Minamino':
+                            labelTitleTwo = 'Minamino';
+                            break;
+                        case 'Ramos':
+                            labelTitleTwo = 'Ramos';
+                            break;
+                        case 'Agüero':
+                            labelTitleTwo = 'Agüero';
+                            break;
+                        case 'Son':
+                            labelTitleTwo = 'Son Heung-min';
+                            break;
+                        case 'Suárez':
+                            labelTitleTwo = 'Suárez';
+                            break;
+                        case 'Arnold':
+                            labelTitleTwo = 'Alexander-Arnold';
+                            break;
+                        case 'LeeGangIn':
+                            labelTitleTwo = 'Lee Kang-in';
+                            break;
+                        case 'Lloris':
+                            labelTitleTwo = 'Lloris';
+                            break;
+                        case 'LeeSeungWoo':
+                            labelTitleTwo = 'Lee Seung-woo';
+                            break;
+                        case 'Piqué':
+                            labelTitleTwo = 'Piqué';
+                            break;
+                        case 'Reus':
+                            labelTitleTwo = 'Reus';
+                            break;
+                        case 'DeBruyne':
+                            labelTitleTwo = 'De Bruyne';
+                            break;
+                        case 'BaekSeungHo':
+                            labelTitleTwo = 'Paik Seung-ho';
+                            break;
+                        case 'Kubo':
+                            labelTitleTwo = 'Kubo';
+                            break;
+                        case 'Firmino':
+                            labelTitleTwo = 'Firmino';
+                            break;
+                        case 'VanDyke':
+                            labelTitleTwo = 'Van Dijk';
+                            break;
+                        case 'Rodriguez':
+                            labelTitleTwo = 'Rodríguez';
+                            break;
+                        case 'HarryKane':
+                            labelTitleTwo = 'Harry Kane';
+                            break;
+                        case 'HwangHeeChan':
+                            labelTitleTwo = 'Hwang Hee-chan';
+                            break;
+                        default:
+                            labelTitleTwo = '-';
+                    }
+                    switch (prediction[2].className) {
+                        case 'Bale':
+                            labelTitleThree = 'Bale';
+                            break;
+                        case 'Griezmann':
+                            labelTitleThree = 'Griezmann';
+                            break;
+                        case 'Neymar':
+                            labelTitleThree = 'Neymar';
+                            break;
+                        case 'Lewandowski':
+                            labelTitleThree = 'Lewandowski';
+                            break;
+                        case 'Messi':
+                            labelTitleThree = 'Messi';
+                            break;
+                        case 'Özil':
+                            labelTitleThree = 'Özil';
+                            break;
+                        case 'Salah':
+                            labelTitleThree = 'Salah';
+                            break;
+                        case 'Hazard':
+                            labelTitleThree = 'Hazard';
+                            break;
+                        case 'Rooney':
+                            labelTitleThree = 'Rooney';
+                            break;
+                        case 'Mbappé':
+                            labelTitleThree = 'Mbappé';
+                            break;
+                        case 'Ibrahimović':
+                            labelTitleThree = 'Ibrahimović';
+                            break;
+                        case 'Dybala':
+                            labelTitleThree = 'Dybala';
+                            break;
+                        case 'deGea':
+                            labelTitleThree = 'De Gea';
+                            break;
+                        case 'DavidLuiz':
+                            labelTitleThree = 'David Luiz';
+                            break;
+                        case 'DavidSilva':
+                            labelTitleThree = 'David Silva';
+                            break;
+                        case 'DeleAlli':
+                            labelTitleThree = 'Alli';
+                            break;
+                        case 'DiegoCosta':
+                            labelTitleThree = 'Diego Costa';
+                            break;
+                        case 'Rakitić':
+                            labelTitleThree = 'Rakitić';
+                            break;
+                        case 'Neuer':
+                            labelTitleThree = 'Neuer';
+                            break;
+                        case 'Marcelo':
+                            labelTitleThree = 'Marcelo';
+                            break;
+                        case 'Minamino':
+                            labelTitleThree = 'Minamino';
+                            break;
+                        case 'Ramos':
+                            labelTitleThree = 'Ramos';
+                            break;
+                        case 'Agüero':
+                            labelTitleThree = 'Agüero';
+                            break;
+                        case 'Son':
+                            labelTitleThree = 'Son Heung-min';
+                            break;
+                        case 'Suárez':
+                            labelTitleThree = 'Suárez';
+                            break;
+                        case 'Arnold':
+                            labelTitleThree = 'Alexander-Arnold';
+                            break;
+                        case 'LeeGangIn':
+                            labelTitleThree = 'Lee Kang-in';
+                            break;
+                        case 'Lloris':
+                            labelTitleThree = 'Lloris';
+                            break;
+                        case 'LeeSeungWoo':
+                            labelTitleThree = 'Lee Seung-woo';
+                            break;
+                        case 'Piqué':
+                            labelTitleThree = 'Piqué';
+                            break;
+                        case 'Reus':
+                            labelTitleThree = 'Reus';
+                            break;
+                        case 'DeBruyne':
+                            labelTitleThree = 'De Bruyne';
+                            break;
+                        case 'BaekSeungHo':
+                            labelTitleThree = 'Paik Seung-ho';
+                            break;
+                        case 'Kubo':
+                            labelTitleThree = 'Kubo';
+                            break;
+                        case 'Firmino':
+                            labelTitleThree = 'Firmino';
+                            break;
+                        case 'VanDyke':
+                            labelTitleThree = 'Van Dijk';
+                            break;
+                        case 'Rodriguez':
+                            labelTitleThree = 'Rodríguez';
+                            break;
+                        case 'HarryKane':
+                            labelTitleThree = 'Harry Kane';
+                            break;
+                        case 'HwangHeeChan':
+                            labelTitleThree = 'Hwang Hee-chan';
+                            break;
+                        default:
+                            labelTitleThree = '-';
+                    }
+
+                    var labelOne = "<div class='one-similar'>" + '1st. ' + labelTitleOne;
+                    var percentOne =
+                        Math.round(prediction[0].probability.toFixed(2) * 100) + '%' + '</div>';
+                    var labelTwo = "<div class='two-similar'>" + '2nd. ' + labelTitleTwo;
+                    var percentTwo =
+                        Math.round(prediction[1].probability.toFixed(2) * 100) + '%' + '</div>';
+                    var labelThree = "<div class='three-similar'>" + '3rd. ' + labelTitleThree;
+                    var percentThree =
+                        Math.round(prediction[2].probability.toFixed(2) * 100) + '%' + '</div>';
+                    labelContainer.childNodes[0].innerHTML = labelOne + ' ' + percentOne;
+                    labelContainer.childNodes[1].innerHTML = labelTwo + ' ' + percentTwo;
+                    labelContainer.childNodes[2].innerHTML = labelThree + ' ' + percentThree;
+                }
+            }
+        </script>
+    </body>
+    <!--Copyright (c) 2020 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
+</html>
