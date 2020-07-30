@@ -15,6 +15,8 @@
             type="text/javascript"
             src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f221be22a20b6d1"
         ></script>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
     </head>
     <body>
         <div id="title"><p class="image-source">Img from: https://cdn.dribbble.com</p></div>
@@ -26,7 +28,13 @@
             src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
         ></script>
         <div class="file-upload">
-            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+            <button
+                class="file-upload-btn"
+                type="button"
+                onclick="$('.file-upload-input').trigger( 'click' )"
+            >
+                Add Image
+            </button>
 
             <div class="image-upload-wrap">
                 <input
@@ -47,14 +55,18 @@
                 <br />
                 <p class="result-Message-Two"></p>
                 <p class="result-Message-One"></p>
-                <a href="" id="result-link"><p class="more-detail">If you want to get player's Information, click here!</p></a>
+                <a href="" id="result-link"
+                    ><p class="more-detail">
+                        If you want to get player's Information, click here!
+                    </p></a
+                >
                 <div id="label-container" class="d-flex flex-column justify-content-around"></div>
-                
+
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                 <div class="addthis_inline_share_toolbox_ayv5"></div>
                 <div class="image-title-wrap">
                     <button type="button" onclick="removeUpload()" class="remove-image">
-                        Retry with another image. 
+                        Retry with another image.
                     </button>
                 </div>
             </div>
