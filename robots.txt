@@ -1,0 +1,2 @@
+User-agent: *Allow:/
+Sitemap: https://similarsoccerplayer.netlify.app/sitemap.xml
