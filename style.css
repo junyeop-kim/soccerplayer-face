@@ -108,10 +108,16 @@ body {
 
 .drag-text h3 {
   font-weight: 100;
-  text-transform: uppercase;
   color: #0b206e;
   padding: 60px 0;
     font-family: sans-serif;
+}
+
+.special-notes {
+  font-weight: 50;
+  color: #e31754;
+    font-family: sans-serif;
+    margin: 15px auto;
 }
 
 .file-upload-image {
