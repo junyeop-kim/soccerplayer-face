@@ -186,6 +186,7 @@ body {
 
 .one-similar, .two-similar, .three-similar {
     font-family: sans-serif;
+    font-weight: bold;
 	font-size: 18px;
     color: #0b206e;
     margin: 4px auto;
@@ -205,7 +206,9 @@ body {
 }
 
 .share-comment {
-    font-weight: bold;
+    font-weight: 50px;
     font-family: sans-serif;
+    text-align: center;
+    margin: 0px auto;
 }
 
