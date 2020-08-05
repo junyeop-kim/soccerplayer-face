@@ -40,6 +40,37 @@
         <div>
             <p class="sub-title">Let's find a similar soccer player with my photo.</p>
         </div>
+        <div class="kakao-banner">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-ts2foq3ciou0"
+                data-ad-width="320"
+                data-ad-height="100"
+            ></ins>
+        </div>
+        <div class="clickmon-banner">
+            <script type="text/javascript">
+                (function (cl, i, c, k, m, o, n) {
+                    m = cl.location.protocol + c;
+                    o = cl.referrer;
+                    m += '&mon_rf=' + encodeURIComponent(o);
+                    n = '<' + i + ' type="text/javascript" src="' + m + '"></' + i + '>';
+                    cl.writeln(n);
+                })(
+                    document,
+                    'script',
+                    '//mtab.clickmon.co.kr/pop/wp_m_320_100_js.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1077391%7C%5E%7CAdver_M_1046207'
+                );
+            </script>
+        </div>
+        <div class="coupang-banner">
+            <a href="https://coupa.ng/bG9nis" target="_blank"
+                ><img
+                    src="https://ads-partners.coupang.com/banners/289340?subId=&traceId=V0-301-50c6c2b97fba9aee-I289340&w=320&h=100"
+                    alt="coupang-ad"
+            /></a>
+        </div>
         <script
             class="jsbin"
             src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
@@ -52,7 +83,6 @@
             >
                 Add Image
             </button>
-
             <div class="image-upload-wrap">
                 <input
                     class="file-upload-input"
@@ -89,46 +119,13 @@
                     </p>
                 </div>
                 <div class="addthis_inline_share_toolbox_itqi"></div>
-                </div>
+            </div>
 
-                <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                <div class="kakao-banner">
-                    <ins
-                        class="kakao_ad_area"
-                        style="display: none;"
-                        data-ad-unit="DAN-ts2foq3ciou0"
-                        data-ad-width="320"
-                        data-ad-height="100"
-                    ></ins>
-                </div>
-                <div class="coupang-banner">
-                    <a href="https://coupa.ng/bG9nis" target="_blank"
-                        ><img
-                            src="https://ads-partners.coupang.com/banners/289340?subId=&traceId=V0-301-50c6c2b97fba9aee-I289340&w=320&h=100"
-                            alt="coupang-ad"
-                    /></a>
-                </div>
-                <div class="clickmon-banner">
-                    <script type="text/javascript">
-                        (function (cl, i, c, k, m, o, n) {
-                            m = cl.location.protocol + c;
-                            o = cl.referrer;
-                            m += '&mon_rf=' + encodeURIComponent(o);
-                            n = '<' + i + ' type="text/javascript" src="' + m + '"></' + i + '>';
-                            cl.writeln(n);
-                        })(
-                            document,
-                            'script',
-                            '//mtab.clickmon.co.kr/pop/wp_m_320_100_js.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1077391%7C%5E%7CAdver_M_1046207'
-                        );
-                    </script>
-                </div>
-                <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">
-                        Retry with another image.
-                    </button>
-                </div>
-
+            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">
+                    Retry with another image.
+                </button>
             </div>
         </div>
         <div id="disqus_thread"></div>
@@ -462,7 +459,8 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
                     case 'James Rodriguez':
-                        document.getElementById('result-Image').src =       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/James_Rodriguez_2018.jpg/220px-James_Rodriguez_2018.jpg';
+                        document.getElementById('result-Image').src =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/James_Rodriguez_2018.jpg/220px-James_Rodriguez_2018.jpg';
                         document.getElementById('result-link').href =
                             'https://en.wikipedia.org/wiki/James_Rodr%C3%ADguez';
                         resultMessageOne = 'James David Rodríguez Rubio';
@@ -1092,7 +1090,8 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                             break;
                         default:
                             labelTitleOne = '-';
-                    } switch (prediction[1].className) {
+                    }
+                    switch (prediction[1].className) {
                         case 'Alisson Becker':
                             labelTitleTwo = 'Alisson Becker';
                             break;
@@ -1323,7 +1322,8 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                             break;
                         default:
                             labelTitleTwo = '-';
-                    } switch (prediction[2].className) {
+                    }
+                    switch (prediction[2].className) {
                         case 'Alisson Becker':
                             labelTitleThree = 'Alisson Becker';
                             break;
