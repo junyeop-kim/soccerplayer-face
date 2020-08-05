@@ -201,8 +201,8 @@ body {
     text-decoration: underline;
 }
 
-.clickmon-banner {
-    margin: 10px 100;
+.clickmon-banner, .kakao-banner, .coupang-banner {
+    margin: 10px 0px 10px 130px;
 }
 
 .share-comment {
