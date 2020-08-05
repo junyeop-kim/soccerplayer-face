@@ -202,11 +202,11 @@ body {
 }
 
 .clickmon-banner, .kakao-banner, .coupang-banner {
-    margin: 10px 0px 10px 200px;
+    margin: 10px 0px 10px 350px;
 }
 
 .kakao-banner{
-    margin: 10px 0px 10px 130px;
+    margin: 10px 0px 10px 350px;
     max-width: 200px;
 }
 
