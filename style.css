@@ -205,6 +205,11 @@ body {
     margin: 10px 0px 10px 130px;
 }
 
+.kakao-banner{
+    margin: 10px 0px 10px 130px;
+    max-width: 200px;
+}
+
 .share-comment {
     font-weight: 50px;
     font-family: sans-serif;
