@@ -202,12 +202,12 @@ body {
 }
 
 .clickmon-banner, .coupang-banner {
-    margin: 10px 0px 10px 350px;
+    margin: 0px auto;
 }
 
 .kakao-banner{
-    margin: 10px 0px 10px 350px;
-    max-width: 200px;
+    margin: 0px auto;
+    max-width: 600px;
 }
 
 .share-comment {
