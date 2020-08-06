@@ -8,15 +8,15 @@
 }
 
 .main-title {
-    height: 50px;
+    height: 70px;
 }
 
 .sub-title {
     font-weight: bold;
     font-family: "Nanum Gothic", sans-serif;
-    font-size: 40px;
+    font-size: 60px;
     text-align: center;
-    color: #000000;
+    color: #555257;
     height: 100px;
     line-height: 100px;
     margin: 0px auto;
@@ -26,9 +26,9 @@
 .sub-title-description {
     font-weight: bold;
     font-family: "Nanum Gothic", sans-serif;
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
-    color: #000000;
+    color: #555257;
     height: 20px;
     line-height: 20px;
     margin: 0px auto;
@@ -37,9 +37,9 @@
 
 .sub-description {
     font-family: "Nanum Gothic", sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     text-align: center;
-    color: #000000;
+    color: #646266;
     height: 100px;
     line-height: 100px;
     margin: 50px auto 0px auto;
@@ -48,9 +48,9 @@
 
 .special-notes {
     font-family: "Nanum Gothic", sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     text-align: center;
-    color: #000000;
+    color: #646266;
     height: 50px;
     line-height: 0px;
     margin: 0px auto;
@@ -117,7 +117,7 @@
     border: 7px solid #000000;
     position: relative;
     background-color: #000000;
-    margin: 0px auto;
+    margin: 0px auto 10px auto;
 }
 
 .image-dropping,
