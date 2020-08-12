@@ -38,11 +38,12 @@
         </div>
         <div class="coupang-banner">
             <iframe
-                src="https://coupa.ng/bHyK1Y"
+                src="https://coupa.ng/bHyK1Y",
                 width="100"
                 height="200"
                 frameborder="0"
                 scrolling="no"
+                class="coupang-banner-one"
             ></iframe>
             <iframe
                 src="https://coupa.ng/bHyLci"
@@ -50,6 +51,7 @@
                 height="200"
                 frameborder="0"
                 scrolling="no"
+                class="coupang-banner-two"    
             ></iframe>
             <iframe
                 src="https://coupa.ng/bHyLmo"
@@ -57,6 +59,7 @@
                 height="200"
                 frameborder="0"
                 scrolling="no"
+                class="coupang-banner-three"
             ></iframe>
             <iframe
                 src="https://coupa.ng/bHyL1K"
@@ -64,6 +67,7 @@
                 height="200"
                 frameborder="0"
                 scrolling="no"
+                class="coupang-banner-four"
             ></iframe>
             <iframe
                 src="https://coupa.ng/bHy5Yl"
@@ -71,6 +75,7 @@
                 height="200"
                 frameborder="0"
                 scrolling="no"
+                class="coupang-banner-five"
             ></iframe>
             <iframe
                 src="https://coupa.ng/bHyOfw"
@@ -78,6 +83,7 @@
                 height="200"
                 frameborder="0"
                 scrolling="no"
+                class="coupang-banner-six"
             ></iframe>
         </div>
         <script
@@ -217,7 +223,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
             // the link to your model provided by Teachable Machine export panel
-            const URL = 'https://teachablemachine.withgoogle.com/models/2qPp1LwHu/';
+            const URL = 'https://teachablemachine.withgoogle.com/models/EtM-VLiYH/';
 
             let model, labelContainer, maxPredictions;
 
@@ -248,619 +254,60 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                 var resultMessageOne, resultMessageTwo;
                 var resultImage;
                 switch (prediction[0].className) {
-                    case 'Alexis Sanchez':
+                    case 'Bolognese':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Alexis_S%C3%A1nchez_2017.jpg/220px-Alexis_S%C3%A1nchez_2017.jpg';
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Bolognese_puppy.jpg/330px-Bolognese_puppy.jpg';
                         document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Alexis_S%C3%A1nchez';
-                        resultMessageOne = 'Alexis Sanchez';
+                            'https://terms.naver.com/entry.nhn?docId=1307455&cid=40942&categoryId=32624';
+                        resultMessageOne = '볼로네즈';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Alisson Becker':
+                    case 'Maltese':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_850_1625.jpg/200px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_850_1625.jpg';
+                            'https://dthumb-phinf.pstatic.net/?src=%22https%3A%2F%2Fdbscthumb-phinf.pstatic.net%2F4455_000_1%2F20160524122855789_G90QQMB8P.jpg%2Fia87_13_i1.jpg%3Ftype%3Dw690_fst_n%26wm%3DY%22&twidth=690&theight=461&opts=17';
                         document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Alisson';
-                        resultMessageOne = 'Alisson Becker';
+                            'https://terms.naver.com/entry.nhn?docId=3396989&cid=58401&categoryId=58401';
+                        resultMessageOne = '말티즈';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Anthony Martial':
+                    case 'Griffon Bruxellois':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Anthony_Martial_27_September_2017_cropped.jpg/200px-Anthony_Martial_27_September_2017_cropped.jpg';
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/0709_gucci_stolt.jpg/330px-0709_gucci_stolt.jpg';
                         document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Anthony_Martial';
-                        resultMessageOne = 'Anthony Martial';
+                            'https://terms.naver.com/entry.nhn?docId=4347833&cid=46677&categoryId=46677';
+                        resultMessageOne = '그리펀 브뤼셀';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Arturo Vidal':
+                    case 'Australian Silky Terrier':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Chile_VS._Australia_%2813%29_%28cropped%29.jpg/220px-Chile_VS._Australia_%2813%29_%28cropped%29.jpg';
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Australian_Silky_Terrier_Alana_Of_Silky%27s_Dream.jpg/330px-Australian_Silky_Terrier_Alana_Of_Silky%27s_Dream.jpg';
                         document.getElementById('result-link').href =
                             'https://en.wikipedia.org/wiki/Arturo_Vidal';
-                        resultMessageOne = 'Arturo Vidal';
+                        resultMessageOne = '오스트레일리안 실키 테리어';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Antoine Griezmann':
+                    case 'English Toy Terrier':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FRA-ARG_%2810%29.jpg/250px-FRA-ARG_%2810%29.jpg';
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/English_Toy_Terrier_600_01.jpg/330px-English_Toy_Terrier_600_01.jpg';
                         document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Antoine_Griezmann';
-                        resultMessageOne = 'Antoine Griezmann';
+                            'https://terms.naver.com/entry.nhn?docId=4347926&cid=46677&categoryId=46677';
+                        resultMessageOne = '잉글리쉬 토이 테리어';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Ashley Young':
+                    case 'Russkiy Toy':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Ashley_Young_2018-06-13_1.jpg/200px-Ashley_Young_2018-06-13_1.jpg';
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/RusskiyToyWelpe9Mon.JPG/330px-RusskiyToyWelpe9Mon.JPG';
                         document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Ashley_Young';
-                        resultMessageOne = 'Ashley Young';
+                            'https://terms.naver.com/entry.nhn?docId=5931411&cid=40942&categoryId=32624';
+                        resultMessageOne = '러시안 토이';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Bernado Silva':
+                    case 'Yorkshire Terrier':
                         document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Por-Mar_%289%29_%28cropped%29.jpg/220px-Por-Mar_%289%29_%28cropped%29.jpg';
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/%282_version%29_Grupp_3%2C_YORKSHIRETERRIER%2C_NO_UCH_SE_UCH_Oxzar_Amazing_Bel%E2%80%99s_Toffy_%2824310212305%29.jpg/330px-%282_version%29_Grupp_3%2C_YORKSHIRETERRIER%2C_NO_UCH_SE_UCH_Oxzar_Amazing_Bel%E2%80%99s_Toffy_%2824310212305%29.jpg';
                         document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Bernardo_Silva';
-                        resultMessageOne = 'Bernardo Silva';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Christian Eriksen':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/d/d8/EriksenTottenham2016%28cropped%29_2.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Christian_Eriksen';
-                        resultMessageOne = 'Christian Eriksen';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Ciro Immobile':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Ciro_Immobile_1.jpg/220px-20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Ciro_Immobile_1.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Ciro_Immobile';
-                        resultMessageOne = 'Ciro Immobile';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'David De Gea':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/David_de_Gea_2017.jpg/220px-David_de_Gea_2017.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/David_de_Gea';
-                        resultMessageOne = 'David de Gea Quintana';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'David Luiz':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/David_Luiz_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/220px-David_Luiz_at_Baku_before_2019_UEFA_Europe_League_Final.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/David_Luiz';
-                        resultMessageOne = 'David Luiz Moreira Marinho';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'David Silva':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/David_Silva_2017.jpg/220px-David_Silva_2017.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/David_Silva';
-                        resultMessageOne = 'David Josué Jiménez Silva';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Dele Alli':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3708_by_Stepro.jpg/220px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3708_by_Stepro.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Dele_Alli';
-                        resultMessageOne = 'Bamidele Jermaine Alli';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Diego Costa':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Diego_Costa_2019.jpg/200px-Diego_Costa_2019.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Diego_Costa';
-                        resultMessageOne = 'Diego da Silva Costa';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Eden Hazard':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Eden_Hazard_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/220px-Eden_Hazard_at_Baku_before_2019_UEFA_Europe_League_Final.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Eden_Hazard';
-                        resultMessageOne = 'Eden Michael Hazard';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Edin Dzeko':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/20150331_2026_AUT_BIH_2177_Edin_D%C5%BEeko.jpg/220px-20150331_2026_AUT_BIH_2177_Edin_D%C5%BEeko.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Edin_D%C5%BEeko';
-                        resultMessageOne = 'Edin Dzeko';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Erik Lamela':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3690_by_Stepro_%28cropped%29.jpg/220px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3690_by_Stepro_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Erik_Lamela';
-                        resultMessageOne = 'Erik Manuel Lamela';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Erling Braut Haland':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/FC_RB_Salzburg_versus_SV_Mattersburg_%284._Juli_2019%29_29.jpg/220px-FC_RB_Salzburg_versus_SV_Mattersburg_%284._Juli_2019%29_29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Erling_Haaland';
-                        resultMessageOne = 'Erling Braut Haland';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Franck Ribery':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Franck_Ribery_2019_%28cropped%29.jpg/220px-Franck_Ribery_2019_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Franck_Rib%C3%A9ry';
-                        resultMessageOne = 'Franck Henry Pierre Ribéry';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Gabriel Jesus':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Gabriel_Jesus_850_1688.jpg/200px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Gabriel_Jesus_850_1688.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Gabriel_Jesus';
-                        resultMessageOne = 'Gabriel Fernando de Jesus';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Gareth Bale':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/AUT_vs._WAL_2016-10-06_%28155%29.jpg/220px-AUT_vs._WAL_2016-10-06_%28155%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Gareth_Bale';
-                        resultMessageOne = 'Gareth Bale';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Gerard Pique':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/GerardPique.jpg/220px-GerardPique.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Gerard_Piqu%C3%A9';
-                        resultMessageOne = 'Gerard Piqué Bernabeu';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Gianluigi Buffon':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Gianluigi_Buffon_%2831784615942%29_%28cropped%29.jpg/220px-Gianluigi_Buffon_%2831784615942%29_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Gianluigi_Buffon';
-                        resultMessageOne = 'Gianluigi "Gigi" Buffon';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Gonzalo Higuain':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Gonzalo_Higua%C3%ADn_2019.jpg/200px-Gonzalo_Higua%C3%ADn_2019.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Gonzalo_Higua%C3%ADn';
-                        resultMessageOne = 'Gonzalo Gerardo Higuaín';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Harry Kane':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Harry_Kane_in_Russia_2.jpg/220px-Harry_Kane_in_Russia_2.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Harry_Kane';
-                        resultMessageOne = 'Harry Edward Kane';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Hugo Lloris':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3687_by_Stepro.jpg/200px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3687_by_Stepro.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Hugo_Lloris';
-                        resultMessageOne = 'Hugo Hadrien Dominique Lloris';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Hwang Hee-chan':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/FC_RB_Salzburg_gegen_Wolfsberger_AC_%2810._August_2019%29_27.jpg/220px-FC_RB_Salzburg_gegen_Wolfsberger_AC_%2810._August_2019%29_27.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Hwang_Hee-chan';
-                        resultMessageOne = 'Hwang Hee-chan';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Ivan Rakitic':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/0/0c/Ivan_Rakiti%C4%87_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Ivan_Rakiti%C4%87';
-                        resultMessageOne = 'Ivan Rakitić';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Jadon Sancho':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/FC_Salzburg_gegen_Manchester_City_FC_%28U19_8._Februar_2017%29_09_%28cropped%29.jpg/200px-FC_Salzburg_gegen_Manchester_City_FC_%28U19_8._Februar_2017%29_09_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Jadon_Sancho';
-                        resultMessageOne = 'Jadon Malik Sancho';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'James Rodriguez':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/James_Rodriguez_2018.jpg/220px-James_Rodriguez_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/James_Rodr%C3%ADguez';
-                        resultMessageOne = 'James David Rodríguez Rubio';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Jamie Vardy':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Jamie_Vardy_2018.jpg/220px-Jamie_Vardy_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Jamie_Vardy';
-                        resultMessageOne = 'Jamie Richard Vardy';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Jan Vertonghen':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Jan_Vertonghen_Belgium.jpg/220px-Jan_Vertonghen_Belgium.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Jan_Vertonghen';
-                        resultMessageOne = 'Jan Bert Lieve Vertonghen';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Jesse Lingard':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Jesse_Lingard_2018-06-13_1.jpg/220px-Jesse_Lingard_2018-06-13_1.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Jesse_Lingard';
-                        resultMessageOne = 'Jesse Ellis Lingard';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Kevin De Bruyne':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Kevin_De_Bruyne_201807091.jpg/220px-Kevin_De_Bruyne_201807091.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Kevin_De_Bruyne';
-                        resultMessageOne = 'Kevin De Bruyne';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Kyle Walker':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Kyle_Walker.jpg/200px-Kyle_Walker.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Kyle_Walker';
-                        resultMessageOne = 'Kyle Andrew Walker';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Kylian Mbappe':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93129_%28cropped%29.jpg/200px-2019-07-17_SG_Dynamo_Dresden_vs._Paris_Saint-Germain_by_Sandro_Halank%E2%80%93129_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Kylian_Mbapp%C3%A9';
-                        resultMessageOne = 'Kylian Mbappé Lottin';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Lee Kang-in':
-                        document.getElementById('result-Image').src =
-                            'https://koreajoongangdaily.joins.com/jmnet/koreajoongangdaily/_data/photo/2019/06/16192741.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Lee_Kang-in';
-                        resultMessageOne = 'Lee Kang-in';
-                        resultMessageTwo = 'Image Source: https://koreajoongangdaily.joins.com';
-                        break;
-                    case 'Lee Seung-woo':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Team_Korea_Russia_WorldCup_11_%28cropped%29.jpg/220px-Team_Korea_Russia_WorldCup_11_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Lee_Seung-woo';
-                        resultMessageOne = 'Lee Seung-woo';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Lionel Messi':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Lionel_Messi_20180626.jpg/220px-Lionel_Messi_20180626.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Lionel_Messi';
-                        resultMessageOne = 'Lionel Andrés Messi Cuccittini';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Lucas Moura':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3703_by_Stepro.jpg/220px-2020-03-10_Fu%C3%9Fball%2C_M%C3%A4nner%2C_UEFA_Champions_League_Achtelfinale%2C_RB_Leipzig_-_Tottenham_Hotspur_1DX_3703_by_Stepro.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Lucas_Moura';
-                        resultMessageOne = 'Lucas Rodrigues Moura da Silva';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Luis Suarez':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Luis_Su%C3%A1rez_2018.jpg/200px-Luis_Su%C3%A1rez_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Luis_Su%C3%A1rez';
-                        resultMessageOne = 'Luis Alberto Suárez Díaz';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Manuel Neuer':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/20180602_FIFA_Friendly_Match_Austria_vs._Germany_Manuel_Neuer_850_0723.jpg/220px-20180602_FIFA_Friendly_Match_Austria_vs._Germany_Manuel_Neuer_850_0723.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Manuel_Neuer';
-                        resultMessageOne = 'Manuel Peter Neuer';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Marcelo Vieira':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_16.jpg/220px-FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_16.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Marcelo_(footballer,_born_1988)';
-                        resultMessageOne = 'Marcelo Vieira da Silva Júnior';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Marco Asensio':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Marco_Asensio_2018.jpg/220px-Marco_Asensio_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Marco_Asensio';
-                        resultMessageOne = 'Marco Asensio Willemsen';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Marco Reus':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/20180602_FIFA_Friendly_Match_Austria_vs._Germany_Marco_Reus_850_0626.jpg/220px-20180602_FIFA_Friendly_Match_Austria_vs._Germany_Marco_Reus_850_0626.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Marco_Reus';
-                        resultMessageOne = 'Marco Reus';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Marcos Llorente':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Marcos_Llorente_2019.jpg/220px-Marcos_Llorente_2019.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Marcos_Llorente';
-                        resultMessageOne = 'Marcos Llorente Moreno';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Marcus Rashford':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Press_Tren_CSKA_-_MU_%283%29.jpg/220px-Press_Tren_CSKA_-_MU_%283%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Marcus_Rashford';
-                        resultMessageOne = 'Marcus Rashford';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Mario Balotelli':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Mario_Balotelli_OM_%28cropped%29.jpg/220px-Mario_Balotelli_OM_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Mario_Balotelli';
-                        resultMessageOne = 'Mario Balotelli Barwuah';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Maxi Gomez':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/XXIII_Memorial_Quinocho_%28RC_Celta_vs_Mainz_05%29_-_09.jpg/200px-XXIII_Memorial_Quinocho_%28RC_Celta_vs_Mainz_05%29_-_09.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Maxi_G%C3%B3mez';
-                        resultMessageOne = 'Maximiliano "Maxi" Gómez González';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Mesut Ozil':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mesut_%C3%96zil_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/220px-Mesut_%C3%96zil_at_Baku_before_2019_UEFA_Europe_League_Final.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Mesut_%C3%96zil';
-                        resultMessageOne = 'Mesut Özil';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Mohamed Salah':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mohamed_Salah_2018.jpg/200px-Mohamed_Salah_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Mohamed_Salah';
-                        resultMessageOne = 'Mohamed Salah Hamed Mahrous Ghaly';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Moussa Sissoko':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Moussa_Sissoko_cropped.JPG/220px-Moussa_Sissoko_cropped.JPG';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Moussa_Sissoko';
-                        resultMessageOne = 'Moussa Sissoko';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Neymar':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Bra-Cos_%281%29.jpg/220px-Bra-Cos_%281%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Neymar';
-                        resultMessageOne = 'Neymar da Silva Santos Júnior';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Olivier Giroud':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Olivier_Giroud_2018.jpg/220px-Olivier_Giroud_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Olivier_Giroud';
-                        resultMessageOne = 'Olivier Jonathan Giroud';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Ousmane Dembele':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Ousmane_Demb%C3%A9l%C3%A9_2018.jpg/200px-Ousmane_Demb%C3%A9l%C3%A9_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Ousmane_Demb%C3%A9l%C3%A9';
-                        resultMessageOne = 'Masour Ousmane Dembélé';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Paik Seung-Ho':
-                        document.getElementById('result-Image').src =
-                            'https://tmssl.akamaized.net/images/portrait/big/282689-1567158664.jpg?lm=1567158687';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Paik_Seung-ho';
-                        resultMessageOne = 'Paik Seung-ho';
-                        resultMessageTwo = 'Image Source: https://tmssl.akamaized.net';
-                        break;
-                    case 'Paul Pogba':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/FRA-ARG_%2811%29_-_Paul_Pogba_%28cropped_2%29.jpg/220px-FRA-ARG_%2811%29_-_Paul_Pogba_%28cropped_2%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Paul_Pogba';
-                        resultMessageOne = 'Paul Labile Pogba';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Paulo Dybala':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/2017_FRIENDLY_MATCH_RUSSIA_v_ARGENTINA_-_Paulo_Dybala_01.jpg/220px-2017_FRIENDLY_MATCH_RUSSIA_v_ARGENTINA_-_Paulo_Dybala_01.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Paulo_Dybala';
-                        resultMessageOne = 'Paulo Bruno Exequiel Dybala';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Phil Foden':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Phil_Foden_%2836502388741%29.jpg/220px-Phil_Foden_%2836502388741%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Phil_Foden';
-                        resultMessageOne = 'Philip Walter Foden';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Philippe Coutinho':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Philippe_Coutinho_850_1692.jpg/220px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Philippe_Coutinho_850_1692.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Philippe_Coutinho';
-                        resultMessageOne = 'Philippe Coutinho Correia';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Robert Lewandowski':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/c/c2/JAP-POL_%286%29_%28cropped%29_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Robert_Lewandowski';
-                        resultMessageOne = 'Robert Lewandowski';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Pierre-Emerick Aubameyang':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/1_Pierre-Emerick_Aubameyang.jpg/220px-1_Pierre-Emerick_Aubameyang.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Pierre-Emerick_Aubameyang';
-                        resultMessageOne = 'Pierre-Emerick Emiliano François Aubameyang';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Wayne Rooney':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Zarya-MU_%286%29.jpg/220px-Zarya-MU_%286%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Wayne_Rooney';
-                        resultMessageOne = 'Wayne Mark Rooney';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Zlatan Ibrahimovic':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Zlatan_Ibrahimovi%C4%87_June_2018.jpg/200px-Zlatan_Ibrahimovi%C4%87_June_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Zlatan_Ibrahimovi%C4%87';
-                        resultMessageOne = 'Zlatan Ibrahimović';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Takumi Minamino':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/FC_Admira_Wacker_M%C3%B6dling_vs._FC_Red_Bull_Salzburg_2018-04-15_%28061%29.jpg/220px-FC_Admira_Wacker_M%C3%B6dling_vs._FC_Red_Bull_Salzburg_2018-04-15_%28061%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Takumi_Minamino';
-                        resultMessageOne = 'Takumi Minamino';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Sergio Ramos':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_09.jpg/215px-FC_RB_Salzburg_versus_Real_Madrid_%28Testspiel%2C_7._August_2019%29_09.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Sergio_Ramos';
-                        resultMessageOne = 'Sergio Ramos García';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Sergio Aguero':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ag%C3%BCero_in_2018.jpg/220px-Ag%C3%BCero_in_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Sergio_Ag%C3%BCero';
-                        resultMessageOne = 'Sergio Leonel Agüero del Castillo';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Thomas Muller':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Thomas_Mueller_Training_2017-05_FC_Bayern_Muenchen-3_%28cropped%29.jpg/220px-Thomas_Mueller_Training_2017-05_FC_Bayern_Muenchen-3_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Thomas_M%C3%BCller';
-                        resultMessageOne = 'Thomas Müller';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Son Heung-min':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Team_Korea_Russia_WorldCup_02_%28cropped%29.png/220px-Team_Korea_Russia_WorldCup_02_%28cropped%29.png';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Son_Heung-min';
-                        resultMessageOne = 'Son Heung-min';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Trent Alexander Arnold':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Trent_Alexander-Arnold_2018.jpg/200px-Trent_Alexander-Arnold_2018.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Trent_Alexander-Arnold';
-                        resultMessageOne = 'Trent John Alexander-Arnold';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Takefusa Kubo':
-                        document.getElementById('result-Image').src =
-                            'https://www.realmadrid.com/img/vertical_380px/kubo_2vc5655_20190716115027.jpg';
-                        document.getElementById('result-link').href = 'https://www.realmadrid.com';
-                        resultMessageOne = 'Takefusa Kubo';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Willian':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Willian_850_1598.jpg/220px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Willian_850_1598.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Willian_(footballer,_born_1988)';
-                        resultMessageOne = 'Willian Borges da Silva';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Wu Lei':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Wu_Lei_20191101_%28cropped%29.jpg/220px-Wu_Lei_20191101_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Wu_Lei';
-                        resultMessageOne = 'Wu Lei';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Roberto Firmino':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Roberto_Firmino_850_1557.jpg/220px-20180610_FIFA_Friendly_Match_Austria_vs._Brazil_Roberto_Firmino_850_1557.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Roberto_Firmino';
-                        resultMessageOne = 'Roberto Firmino Barbosa de Oliveira';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Romelu Lukaku':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Romelu_Lukaku_with_Belgium_before_game_v_Brazil%2C_6_July_2018.jpg.png/175px-Romelu_Lukaku_with_Belgium_before_game_v_Brazil%2C_6_July_2018.jpg.png';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Romelu_Lukaku';
-                        resultMessageOne = 'Romelu Menama Lukaku Bolingoli';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Sadio Mane':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Sadio_Man%C3%A9_Senegal.jpg/200px-Sadio_Man%C3%A9_Senegal.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Sadio_Man%C3%A9';
-                        resultMessageOne = 'Sadio Mané';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Virgil Van Dijk':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/20160604_AUT_NED_8876_%28cropped%29.jpg/220px-20160604_AUT_NED_8876_%28cropped%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Virgil_van_Dijk';
-                        resultMessageOne = 'Virgil van Dijk';
+                            'https://terms.naver.com/entry.nhn?docId=1977896&cid=42883&categoryId=44356';
+                        resultMessageOne = '요크셔테리어';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
                     default:
@@ -882,697 +329,76 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                     var labelTitleTwo;
                     var labelTitleThree;
                     switch (prediction[0].className) {
-                        case 'Alisson Becker':
-                            labelTitleOne = 'Alisson Becker';
+                        case 'Bolognese':
+                            labelTitleOne = '볼로네즈';
                             break;
-                        case 'Anthony Martial':
-                            labelTitleOne = 'Anthony Martial';
+                        case 'Maltese':
+                            labelTitleOne = '말티즈';
                             break;
-                        case 'Arturo Vidal':
-                            labelTitleOne = 'Arturo Vidal';
+                        case 'Griffon Bruxellois':
+                            labelTitleOne = '그리폰 브뤼셀';
                             break;
-                        case 'Antoine Griezmann':
-                            labelTitleOne = 'Antoine Griezmann';
+                        case 'Australian Silky Terrier':
+                            labelTitleOne = '오스트레일리안 실키 테리어';
                             break;
-                        case 'Ashley Young':
-                            labelTitleOne = 'Ashley Young';
+                        case 'English Toy Terrier':
+                            labelTitleOne = '잉글리쉬 토이 테리어';
                             break;
-                        case 'Bernado Silva':
-                            labelTitleOne = 'Bernado Silva';
+                        case 'Russkiy Toy':
+                            labelTitleOne = '러시안 토이';
                             break;
-                        case 'Christian Eriksen':
-                            labelTitleOne = 'Christian Eriksen';
-                            break;
-                        case 'Ciro Immobile':
-                            labelTitleOne = 'Ciro Immobile';
-                            break;
-                        case 'David De Gea':
-                            labelTitleOne = 'David De Gea';
-                            break;
-                        case 'David Luiz':
-                            labelTitleOne = 'David Luiz';
-                            break;
-                        case 'David Silva':
-                            labelTitleOne = 'David Silva';
-                            break;
-                        case 'Dele Alli':
-                            labelTitleOne = 'Dele Alli';
-                            break;
-                        case 'Diego Costa':
-                            labelTitleOne = 'Diego Costa';
-                            break;
-                        case 'Eden Hazard':
-                            labelTitleOne = 'Eden Hazard';
-                            break;
-                        case 'Edin Dzeko':
-                            labelTitleOne = 'Edin Dzeko';
-                            break;
-                        case 'Erik Lamela':
-                            labelTitleOne = 'Erik Lamela';
-                            break;
-                        case 'Erling Braut Haland':
-                            labelTitleOne = 'Erling Braut Haland';
-                            break;
-                        case 'Franck Ribery':
-                            labelTitleOne = 'Franck Ribery';
-                            break;
-                        case 'Gabriel Jesus':
-                            labelTitleOne = 'Gabriel Jesus';
-                            break;
-                        case 'Gareth Bale':
-                            labelTitleOne = 'Gareth Bale';
-                            break;
-                        case 'Gerard Pique':
-                            labelTitleOne = 'Gerard Pique';
-                            break;
-                        case 'Gianluigi Buffon':
-                            labelTitleOne = 'Gianluigi Buffon';
-                            break;
-                        case 'Gonzalo Higuain':
-                            labelTitleOne = 'Gonzalo Higuain';
-                            break;
-                        case 'Harry Kane':
-                            labelTitleOne = 'Harry Kane';
-                            break;
-                        case 'Hugo Lloris':
-                            labelTitleOne = 'Hugo Lloris';
-                            break;
-                        case 'Hwang Hee-chan':
-                            labelTitleOne = 'Hwang Hee-chan';
-                            break;
-                        case 'Ivan Rakitic':
-                            labelTitleOne = 'Ivan Rakitic';
-                            break;
-                        case 'Jadon Sancho':
-                            labelTitleOne = 'Jadon Sancho';
-                            break;
-                        case 'James Rodriguez':
-                            labelTitleOne = 'James Rodriguez';
-                            break;
-                        case 'Jamie Vardy':
-                            labelTitleOne = 'Jamie Vardy';
-                            break;
-                        case 'Jan Vertonghen':
-                            labelTitleOne = 'Jan Vertonghen';
-                            break;
-                        case 'Jesse Lingard':
-                            labelTitleOne = 'Jesse Lingard';
-                            break;
-                        case 'Kevin De Bruyne':
-                            labelTitleOne = 'Kevin De Bruyne';
-                            break;
-                        case 'Kyle Walker':
-                            labelTitleOne = 'Kyle Walker';
-                            break;
-                        case 'Kylian Mbappe':
-                            labelTitleOne = 'Kylian Mbappe';
-                            break;
-                        case 'Lee Kang-in':
-                            labelTitleOne = 'Lee Kang-in';
-                            break;
-                        case 'Lee Seung-woo':
-                            labelTitleOne = 'Lee Seung-woo';
-                            break;
-                        case 'Lionel Messi':
-                            labelTitleOne = 'Lionel Messi';
-                            break;
-                        case 'Lucas Moura':
-                            labelTitleOne = 'Lucas Moura';
-                            break;
-                        case 'Luis Suarez':
-                            labelTitleOne = 'Luis Suarez';
-                            break;
-                        case 'Manuel Neuer':
-                            labelTitleOne = 'Manuel Neuer';
-                            break;
-                        case 'Marcelo Vieira':
-                            labelTitleOne = 'Marcelo Vieira';
-                            break;
-                        case 'Marco Asensio':
-                            labelTitleOne = 'Marco Asensio';
-                            break;
-                        case 'Marco Reus':
-                            labelTitleOne = 'Marco Reus';
-                            break;
-                        case 'Marcos Llorente':
-                            labelTitleOne = 'Marcos Llorente';
-                            break;
-                        case 'Marcus Rashford':
-                            labelTitleOne = 'Marcus Rashford';
-                            break;
-                        case 'Mario Balotelli':
-                            labelTitleOne = 'Mario Balotelli';
-                            break;
-                        case 'Maxi Gomez':
-                            labelTitleOne = 'Maxi Gomez';
-                            break;
-                        case 'Mesut Ozil':
-                            labelTitleOne = 'Mesut Ozil';
-                            break;
-                        case 'Mohamed Salah':
-                            labelTitleOne = 'Mohamed Salah';
-                            break;
-                        case 'Moussa Sissoko':
-                            labelTitleOne = 'Moussa Sissoko';
-                            break;
-                        case 'Neymar':
-                            labelTitleOne = 'Neymar';
-                            break;
-                        case 'Olivier Giroud':
-                            labelTitleOne = 'Olivier Giroud';
-                            break;
-                        case 'Ousmane Dembele':
-                            labelTitleOne = 'Ousmane Dembele';
-                            break;
-                        case 'Paik Seung-Ho':
-                            labelTitleOne = 'Paik Seung-Ho';
-                            break;
-                        case 'Paul Pogba':
-                            labelTitleOne = 'Paul Pogba';
-                            break;
-                        case 'Paulo Dybala':
-                            labelTitleOne = 'Paulo Dybala';
-                            break;
-                        case 'Phil Foden':
-                            labelTitleOne = 'Phil Foden';
-                            break;
-                        case 'Philippe Coutinho':
-                            labelTitleOne = 'Philippe Coutinho';
-                            break;
-                        case 'Robert Lewandowski':
-                            labelTitleOne = 'Robert Lewandowski';
-                            break;
-                        case 'Pierre-Emerick Aubameyang':
-                            labelTitleOne = 'Pierre-Emerick Aubameyang';
-                            break;
-                        case 'Wayne Rooney':
-                            labelTitleOne = 'Wayne Rooney';
-                            break;
-                        case 'Zlatan Ibrahimovic':
-                            labelTitleOne = 'Zlatan Ibrahimovic';
-                            break;
-                        case 'Takumi Minamino':
-                            labelTitleOne = 'Takumi Minamino';
-                            break;
-                        case 'Sergio Ramos':
-                            labelTitleOne = 'Sergio Ramos';
-                            break;
-                        case 'Sergio Aguero':
-                            labelTitleOne = 'Sergio Aguero';
-                            break;
-                        case 'Thomas Muller':
-                            labelTitleOne = 'Thomas Muller';
-                            break;
-                        case 'Son Heung-min':
-                            labelTitleOne = 'Son Heung-min';
-                            break;
-                        case 'Trent Alexander Arnold':
-                            labelTitleOne = 'Trent Alexander Arnold';
-                            break;
-                        case 'Takefusa Kubo':
-                            labelTitleOne = 'Takefusa Kubo';
-                            break;
-                        case 'Willian':
-                            labelTitleOne = 'Willian';
-                            break;
-                        case 'Wu Lei':
-                            labelTitleOne = 'Wu Lei';
-                            break;
-                        case 'Roberto Firmino':
-                            labelTitleOne = 'Roberto Firmino';
-                            break;
-                        case 'Romelu Lukaku':
-                            labelTitleOne = 'Romelu Lukaku';
-                            break;
-                        case 'Sadio Mane':
-                            labelTitleOne = 'Sadio Mane';
-                            break;
-                        case 'Virgil Van Dijk':
-                            labelTitleOne = 'Virgil Van Dijk';
+                        case 'Yorkshire Terrier':
+                            labelTitleOne = '요크셔테리어';
                             break;
                         default:
                             labelTitleOne = '-';
                     }
                     switch (prediction[1].className) {
-                        case 'Alisson Becker':
-                            labelTitleTwo = 'Alisson Becker';
+                        case 'Bolognese':
+                            labelTitleTwo = '볼로네즈';
                             break;
-                        case 'Anthony Martial':
-                            labelTitleTwo = 'Anthony Martial';
+                        case 'Maltese':
+                            labelTitleTwo = '말티즈';
                             break;
-                        case 'Arturo Vidal':
-                            labelTitleTwo = 'Arturo Vidal';
+                        case 'Griffon Bruxellois':
+                            labelTitleTwo = '그리폰 브뤼셀';
                             break;
-                        case 'Antoine Griezmann':
-                            labelTitleTwo = 'Antoine Griezmann';
+                        case 'Australian Silky Terrier':
+                            labelTitleTwo = '오스트레일리안 실키 테리어';
                             break;
-                        case 'Ashley Young':
-                            labelTitleTwo = 'Ashley Young';
+                        case 'English Toy Terrier':
+                            labelTitleTwo = '잉글리쉬 토이 테리어';
                             break;
-                        case 'Bernado Silva':
-                            labelTitleTwo = 'Bernado Silva';
+                        case 'Russkiy Toy':
+                            labelTitleTwo = '러시안 토이';
                             break;
-                        case 'Christian Eriksen':
-                            labelTitleTwo = 'Christian Eriksen';
-                            break;
-                        case 'Ciro Immobile':
-                            labelTitleTwo = 'Ciro Immobile';
-                            break;
-                        case 'David De Gea':
-                            labelTitleTwo = 'David De Gea';
-                            break;
-                        case 'David Luiz':
-                            labelTitleTwo = 'David Luiz';
-                            break;
-                        case 'David Silva':
-                            labelTitleTwo = 'David Silva';
-                            break;
-                        case 'Dele Alli':
-                            labelTitleTwo = 'Dele Alli';
-                            break;
-                        case 'Diego Costa':
-                            labelTitleTwo = 'Diego Costa';
-                            break;
-                        case 'Eden Hazard':
-                            labelTitleTwo = 'Eden Hazard';
-                            break;
-                        case 'Edin Dzeko':
-                            labelTitleTwo = 'Edin Dzeko';
-                            break;
-                        case 'Erik Lamela':
-                            labelTitleTwo = 'Erik Lamela';
-                            break;
-                        case 'Erling Braut Haland':
-                            labelTitleTwo = 'Erling Braut Haland';
-                            break;
-                        case 'Franck Ribery':
-                            labelTitleTwo = 'Franck Ribery';
-                            break;
-                        case 'Gabriel Jesus':
-                            labelTitleTwo = 'Gabriel Jesus';
-                            break;
-                        case 'Gareth Bale':
-                            labelTitleTwo = 'Gareth Bale';
-                            break;
-                        case 'Gerard Pique':
-                            labelTitleTwo = 'Gerard Pique';
-                            break;
-                        case 'Gianluigi Buffon':
-                            labelTitleTwo = 'Gianluigi Buffon';
-                            break;
-                        case 'Gonzalo Higuain':
-                            labelTitleTwo = 'Gonzalo Higuain';
-                            break;
-                        case 'Harry Kane':
-                            labelTitleTwo = 'Harry Kane';
-                            break;
-                        case 'Hugo Lloris':
-                            labelTitleTwo = 'Hugo Lloris';
-                            break;
-                        case 'Hwang Hee-chan':
-                            labelTitleTwo = 'Hwang Hee-chan';
-                            break;
-                        case 'Ivan Rakitic':
-                            labelTitleTwo = 'Ivan Rakitic';
-                            break;
-                        case 'Jadon Sancho':
-                            labelTitleTwo = 'Jadon Sancho';
-                            break;
-                        case 'James Rodriguez':
-                            labelTitleTwo = 'James Rodriguez';
-                            break;
-                        case 'Jamie Vardy':
-                            labelTitleTwo = 'Jamie Vardy';
-                            break;
-                        case 'Jan Vertonghen':
-                            labelTitleTwo = 'Jan Vertonghen';
-                            break;
-                        case 'Jesse Lingard':
-                            labelTitleTwo = 'Jesse Lingard';
-                            break;
-                        case 'Kevin De Bruyne':
-                            labelTitleTwo = 'Kevin De Bruyne';
-                            break;
-                        case 'Kyle Walker':
-                            labelTitleTwo = 'Kyle Walker';
-                            break;
-                        case 'Kylian Mbappe':
-                            labelTitleTwo = 'Kylian Mbappe';
-                            break;
-                        case 'Lee Kang-in':
-                            labelTitleTwo = 'Lee Kang-in';
-                            break;
-                        case 'Lee Seung-woo':
-                            labelTitleTwo = 'Lee Seung-woo';
-                            break;
-                        case 'Lionel Messi':
-                            labelTitleTwo = 'Lionel Messi';
-                            break;
-                        case 'Lucas Moura':
-                            labelTitleTwo = 'Lucas Moura';
-                            break;
-                        case 'Luis Suarez':
-                            labelTitleTwo = 'Luis Suarez';
-                            break;
-                        case 'Manuel Neuer':
-                            labelTitleTwo = 'Manuel Neuer';
-                            break;
-                        case 'Marcelo Vieira':
-                            labelTitleTwo = 'Marcelo Vieira';
-                            break;
-                        case 'Marco Asensio':
-                            labelTitleTwo = 'Marco Asensio';
-                            break;
-                        case 'Marco Reus':
-                            labelTitleTwo = 'Marco Reus';
-                            break;
-                        case 'Marcos Llorente':
-                            labelTitleTwo = 'Marcos Llorente';
-                            break;
-                        case 'Marcus Rashford':
-                            labelTitleTwo = 'Marcus Rashford';
-                            break;
-                        case 'Mario Balotelli':
-                            labelTitleTwo = 'Mario Balotelli';
-                            break;
-                        case 'Maxi Gomez':
-                            labelTitleTwo = 'Maxi Gomez';
-                            break;
-                        case 'Mesut Ozil':
-                            labelTitleTwo = 'Mesut Ozil';
-                            break;
-                        case 'Mohamed Salah':
-                            labelTitleTwo = 'Mohamed Salah';
-                            break;
-                        case 'Moussa Sissoko':
-                            labelTitleTwo = 'Moussa Sissoko';
-                            break;
-                        case 'Neymar':
-                            labelTitleTwo = 'Neymar';
-                            break;
-                        case 'Olivier Giroud':
-                            labelTitleTwo = 'Olivier Giroud';
-                            break;
-                        case 'Ousmane Dembele':
-                            labelTitleTwo = 'Ousmane Dembele';
-                            break;
-                        case 'Paik Seung-Ho':
-                            labelTitleTwo = 'Paik Seung-Ho';
-                            break;
-                        case 'Paul Pogba':
-                            labelTitleTwo = 'Paul Pogba';
-                            break;
-                        case 'Paulo Dybala':
-                            labelTitleTwo = 'Paulo Dybala';
-                            break;
-                        case 'Phil Foden':
-                            labelTitleTwo = 'Phil Foden';
-                            break;
-                        case 'Philippe Coutinho':
-                            labelTitleTwo = 'Philippe Coutinho';
-                            break;
-                        case 'Robert Lewandowski':
-                            labelTitleTwo = 'Robert Lewandowski';
-                            break;
-                        case 'Pierre-Emerick Aubameyang':
-                            labelTitleTwo = 'Pierre-Emerick Aubameyang';
-                            break;
-                        case 'Wayne Rooney':
-                            labelTitleTwo = 'Wayne Rooney';
-                            break;
-                        case 'Zlatan Ibrahimovic':
-                            labelTitleTwo = 'Zlatan Ibrahimovic';
-                            break;
-                        case 'Takumi Minamino':
-                            labelTitleTwo = 'Takumi Minamino';
-                            break;
-                        case 'Sergio Ramos':
-                            labelTitleTwo = 'Sergio Ramos';
-                            break;
-                        case 'Sergio Aguero':
-                            labelTitleTwo = 'Sergio Aguero';
-                            break;
-                        case 'Thomas Muller':
-                            labelTitleTwo = 'Thomas Muller';
-                            break;
-                        case 'Son Heung-min':
-                            labelTitleTwo = 'Son Heung-min';
-                            break;
-                        case 'Trent Alexander Arnold':
-                            labelTitleTwo = 'Trent Alexander Arnold';
-                            break;
-                        case 'Takefusa Kubo':
-                            labelTitleTwo = 'Takefusa Kubo';
-                            break;
-                        case 'Willian':
-                            labelTitleTwo = 'Willian';
-                            break;
-                        case 'Wu Lei':
-                            labelTitleTwo = 'Wu Lei';
-                            break;
-                        case 'Roberto Firmino':
-                            labelTitleTwo = 'Roberto Firmino';
-                            break;
-                        case 'Romelu Lukaku':
-                            labelTitleTwo = 'Romelu Lukaku';
-                            break;
-                        case 'Sadio Mane':
-                            labelTitleTwo = 'Sadio Mane';
-                            break;
-                        case 'Virgil Van Dijk':
-                            labelTitleTwo = 'Virgil Van Dijk';
+                        case 'Yorkshire Terrier':
+                            labelTitleTwo = '요크셔테리어';
                             break;
                         default:
                             labelTitleTwo = '-';
                     }
                     switch (prediction[2].className) {
-                        case 'Alisson Becker':
-                            labelTitleThree = 'Alisson Becker';
+                        case 'Bolognese':
+                            labelTitleThree = '볼로네즈';
                             break;
-                        case 'Anthony Martial':
-                            labelTitleThree = 'Anthony Martial';
+                        case 'Maltese':
+                            labelTitleThree = '말티즈';
                             break;
-                        case 'Arturo Vidal':
-                            labelTitleThree = 'Arturo Vidal';
+                        case 'Griffon Bruxellois':
+                            labelTitleThree = '그리폰 브뤼셀';
                             break;
-                        case 'Antoine Griezmann':
-                            labelTitleThree = 'Antoine Griezmann';
+                        case 'Australian Silky Terrier':
+                            labelTitleThree = '오스트레일리안 실키 테리어';
                             break;
-                        case 'Ashley Young':
-                            labelTitleThree = 'Ashley Young';
+                        case 'English Toy Terrier':
+                            labelTitleThree = '잉글리쉬 토이 테리어';
                             break;
-                        case 'Bernado Silva':
-                            labelTitleThree = 'Bernado Silva';
+                        case 'Russkiy Toy':
+                            labelTitleThree = '러시안 토이';
                             break;
-                        case 'Christian Eriksen':
-                            labelTitleThree = 'Christian Eriksen';
-                            break;
-                        case 'Ciro Immobile':
-                            labelTitleThree = 'Ciro Immobile';
-                            break;
-                        case 'David De Gea':
-                            labelTitleThree = 'David De Gea';
-                            break;
-                        case 'David Luiz':
-                            labelTitleThree = 'David Luiz';
-                            break;
-                        case 'David Silva':
-                            labelTitleThree = 'David Silva';
-                            break;
-                        case 'Dele Alli':
-                            labelTitleThree = 'Dele Alli';
-                            break;
-                        case 'Diego Costa':
-                            labelTitleThree = 'Diego Costa';
-                            break;
-                        case 'Eden Hazard':
-                            labelTitleThree = 'Eden Hazard';
-                            break;
-                        case 'Edin Dzeko':
-                            labelTitleThree = 'Edin Dzeko';
-                            break;
-                        case 'Erik Lamela':
-                            labelTitleThree = 'Erik Lamela';
-                            break;
-                        case 'Erling Braut Haland':
-                            labelTitleThree = 'Erling Braut Haland';
-                            break;
-                        case 'Franck Ribery':
-                            labelTitleThree = 'Franck Ribery';
-                            break;
-                        case 'Gabriel Jesus':
-                            labelTitleThree = 'Gabriel Jesus';
-                            break;
-                        case 'Gareth Bale':
-                            labelTitleThree = 'Gareth Bale';
-                            break;
-                        case 'Gerard Pique':
-                            labelTitleThree = 'Gerard Pique';
-                            break;
-                        case 'Gianluigi Buffon':
-                            labelTitleThree = 'Gianluigi Buffon';
-                            break;
-                        case 'Gonzalo Higuain':
-                            labelTitleThree = 'Gonzalo Higuain';
-                            break;
-                        case 'Harry Kane':
-                            labelTitleThree = 'Harry Kane';
-                            break;
-                        case 'Hugo Lloris':
-                            labelTitleThree = 'Hugo Lloris';
-                            break;
-                        case 'Hwang Hee-chan':
-                            labelTitleThree = 'Hwang Hee-chan';
-                            break;
-                        case 'Ivan Rakitic':
-                            labelTitleThree = 'Ivan Rakitic';
-                            break;
-                        case 'Jadon Sancho':
-                            labelTitleThree = 'Jadon Sancho';
-                            break;
-                        case 'James Rodriguez':
-                            labelTitleThree = 'James Rodriguez';
-                            break;
-                        case 'Jamie Vardy':
-                            labelTitleThree = 'Jamie Vardy';
-                            break;
-                        case 'Jan Vertonghen':
-                            labelTitleThree = 'Jan Vertonghen';
-                            break;
-                        case 'Jesse Lingard':
-                            labelTitleThree = 'Jesse Lingard';
-                            break;
-                        case 'Kevin De Bruyne':
-                            labelTitleThree = 'Kevin De Bruyne';
-                            break;
-                        case 'Kyle Walker':
-                            labelTitleThree = 'Kyle Walker';
-                            break;
-                        case 'Kylian Mbappe':
-                            labelTitleThree = 'Kylian Mbappe';
-                            break;
-                        case 'Lee Kang-in':
-                            labelTitleThree = 'Lee Kang-in';
-                            break;
-                        case 'Lee Seung-woo':
-                            labelTitleThree = 'Lee Seung-woo';
-                            break;
-                        case 'Lionel Messi':
-                            labelTitleThree = 'Lionel Messi';
-                            break;
-                        case 'Lucas Moura':
-                            labelTitleThree = 'Lucas Moura';
-                            break;
-                        case 'Luis Suarez':
-                            labelTitleThree = 'Luis Suarez';
-                            break;
-                        case 'Manuel Neuer':
-                            labelTitleThree = 'Manuel Neuer';
-                            break;
-                        case 'Marcelo Vieira':
-                            labelTitleThree = 'Marcelo Vieira';
-                            break;
-                        case 'Marco Asensio':
-                            labelTitleThree = 'Marco Asensio';
-                            break;
-                        case 'Marco Reus':
-                            labelTitleThree = 'Marco Reus';
-                            break;
-                        case 'Marcos Llorente':
-                            labelTitleThree = 'Marcos Llorente';
-                            break;
-                        case 'Marcus Rashford':
-                            labelTitleThree = 'Marcus Rashford';
-                            break;
-                        case 'Mario Balotelli':
-                            labelTitleThree = 'Mario Balotelli';
-                            break;
-                        case 'Maxi Gomez':
-                            labelTitleThree = 'Maxi Gomez';
-                            break;
-                        case 'Mesut Ozil':
-                            labelTitleThree = 'Mesut Ozil';
-                            break;
-                        case 'Mohamed Salah':
-                            labelTitleThree = 'Mohamed Salah';
-                            break;
-                        case 'Moussa Sissoko':
-                            labelTitleThree = 'Moussa Sissoko';
-                            break;
-                        case 'Neymar':
-                            labelTitleThree = 'Neymar';
-                            break;
-                        case 'Olivier Giroud':
-                            labelTitleThree = 'Olivier Giroud';
-                            break;
-                        case 'Ousmane Dembele':
-                            labelTitleThree = 'Ousmane Dembele';
-                            break;
-                        case 'Paik Seung-Ho':
-                            labelTitleThree = 'Paik Seung-Ho';
-                            break;
-                        case 'Paul Pogba':
-                            labelTitleThree = 'Paul Pogba';
-                            break;
-                        case 'Paulo Dybala':
-                            labelTitleThree = 'Paulo Dybala';
-                            break;
-                        case 'Phil Foden':
-                            labelTitleThree = 'Phil Foden';
-                            break;
-                        case 'Philippe Coutinho':
-                            labelTitleThree = 'Philippe Coutinho';
-                            break;
-                        case 'Robert Lewandowski':
-                            labelTitleThree = 'Robert Lewandowski';
-                            break;
-                        case 'Pierre-Emerick Aubameyang':
-                            labelTitleThree = 'Pierre-Emerick Aubameyang';
-                            break;
-                        case 'Wayne Rooney':
-                            labelTitleThree = 'Wayne Rooney';
-                            break;
-                        case 'Zlatan Ibrahimovic':
-                            labelTitleThree = 'Zlatan Ibrahimovic';
-                            break;
-                        case 'Takumi Minamino':
-                            labelTitleThree = 'Takumi Minamino';
-                            break;
-                        case 'Sergio Ramos':
-                            labelTitleThree = 'Sergio Ramos';
-                            break;
-                        case 'Sergio Aguero':
-                            labelTitleThree = 'Sergio Aguero';
-                            break;
-                        case 'Thomas Muller':
-                            labelTitleThree = 'Thomas Muller';
-                            break;
-                        case 'Son Heung-min':
-                            labelTitleThree = 'Son Heung-min';
-                            break;
-                        case 'Trent Alexander Arnold':
-                            labelTitleThree = 'Trent Alexander Arnold';
-                            break;
-                        case 'Takefusa Kubo':
-                            labelTitleThree = 'Takefusa Kubo';
-                            break;
-                        case 'Willian':
-                            labelTitleThree = 'Willian';
-                            break;
-                        case 'Wu Lei':
-                            labelTitleThree = 'Wu Lei';
-                            break;
-                        case 'Roberto Firmino':
-                            labelTitleThree = 'Roberto Firmino';
-                            break;
-                        case 'Romelu Lukaku':
-                            labelTitleThree = 'Romelu Lukaku';
-                            break;
-                        case 'Sadio Mane':
-                            labelTitleThree = 'Sadio Mane';
-                            break;
-                        case 'Virgil Van Dijk':
-                            labelTitleThree = 'Virgil Van Dijk';
+                        case 'Yorkshire Terrier':
+                            labelTitleThree = '요크셔테리어';
                             break;
                         default:
                             labelTitleThree = '-';
