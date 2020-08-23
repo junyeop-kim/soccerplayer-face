@@ -14,7 +14,10 @@
         />
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="style.css" />
-        <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans%display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Black+Han+Sans%display=swap"
+            rel="stylesheet"
+        />
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -49,7 +52,7 @@
                     accept="image/*"
                 />
                 <div class="drag-text">
-                    <h3>클릭하여 사진을 <br>업로드 해주세요!</h3>
+                    <h3>클릭하여 사진을 <br />업로드 해주세요!</h3>
                 </div>
             </div>
             <div class="file-upload-content">
@@ -106,7 +109,10 @@
         </div>
         <div id="disqus_thread"></div>
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f221be22a20b6d1"></script>
+        <script
+            type="text/javascript"
+            src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f221be22a20b6d1"
+        ></script>
         <script>
             /**
              *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -139,7 +145,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
 
                     reader.onload = function (e) {
                         $('.image-upload-wrap').hide();
-                        $('#loading').show();    
+                        $('#loading').show();
                         $('.file-upload-image').attr('src', e.target.result);
                         $('.file-upload-content').show();
                         $('.image-title').html(input.files[0].name);
@@ -173,7 +179,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
             // the link to your model provided by Teachable Machine export panel
-            const URL = 'https://teachablemachine.withgoogle.com/models/EtM-VLiYH/';
+            const URL = 'https://teachablemachine.withgoogle.com/models/gHbfl3-AW/' && 'https://teachablemachine.withgoogle.com/models/845DwjFEd/' && 'https://teachablemachine.withgoogle.com/models/cHUgRERj-/' && 'https://teachablemachine.withgoogle.com/models/k89hG5ujt/' &&               'https://teachablemachine.withgoogle.com/models/LkWdBw4aV/' && 'https://teachablemachine.withgoogle.com/models/HaGLYkGqn/';
 
             let model, labelContainer, maxPredictions;
 
@@ -181,7 +187,6 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
             async function init() {
                 const modelURL = URL + 'model.json';
                 const metadataURL = URL + 'metadata.json';
-
                 // load the model and metadata
                 // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
                 // or files from your local hard drive
@@ -194,6 +199,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                     labelContainer.appendChild(document.createElement('div'));
                 }
             }
+
             // run the webcam image through the image model
             async function predict() {
                 // predict can take in an image, video or canvas html element
@@ -204,60 +210,20 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                 var resultMessageOne, resultMessageTwo;
                 var resultImage;
                 switch (prediction[0].className) {
-                    case 'Bolognese':
+                    case 'Cairn Terrier dog':
                         document.getElementById('result-Image').src =
                             'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Bolognese_puppy.jpg/330px-Bolognese_puppy.jpg';
                         document.getElementById('result-link').href =
                             'https://terms.naver.com/entry.nhn?docId=1307455&cid=40942&categoryId=32624';
-                        resultMessageOne = '볼로네즈';
+                        resultMessageOne = 'Cairn Terrier dog';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
-                    case 'Maltese':
+                    case 'Vizsla dog':
                         document.getElementById('result-Image').src =
-                            'https://dthumb-phinf.pstatic.net/?src=%22https%3A%2F%2Fdbscthumb-phinf.pstatic.net%2F4455_000_1%2F20160524122855789_G90QQMB8P.jpg%2Fia87_13_i1.jpg%3Ftype%3Dw690_fst_n%26wm%3DY%22&twidth=690&theight=461&opts=17';
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Bolognese_puppy.jpg/330px-Bolognese_puppy.jpg';
                         document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=3396989&cid=58401&categoryId=58401';
-                        resultMessageOne = '말티즈';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Griffon Bruxellois':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/0709_gucci_stolt.jpg/330px-0709_gucci_stolt.jpg';
-                        document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=4347833&cid=46677&categoryId=46677';
-                        resultMessageOne = '그리펀 브뤼셀';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Australian Silky Terrier':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Australian_Silky_Terrier_Alana_Of_Silky%27s_Dream.jpg/330px-Australian_Silky_Terrier_Alana_Of_Silky%27s_Dream.jpg';
-                        document.getElementById('result-link').href =
-                            'https://en.wikipedia.org/wiki/Arturo_Vidal';
-                        resultMessageOne = '오스트레일리안 실키 테리어';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'English Toy Terrier':
-                        document.getElementById('result-Image').src =
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/English_Toy_Terrier_600_01.jpg/330px-English_Toy_Terrier_600_01.jpg';
-                        document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=4347926&cid=46677&categoryId=46677';
-                        resultMessageOne = '잉글리쉬 토이 테리어';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Russkiy Toy':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/RusskiyToyWelpe9Mon.JPG/330px-RusskiyToyWelpe9Mon.JPG';
-                        document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=5931411&cid=40942&categoryId=32624';
-                        resultMessageOne = '러시안 토이';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Yorkshire Terrier':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/%282_version%29_Grupp_3%2C_YORKSHIRETERRIER%2C_NO_UCH_SE_UCH_Oxzar_Amazing_Bel%E2%80%99s_Toffy_%2824310212305%29.jpg/330px-%282_version%29_Grupp_3%2C_YORKSHIRETERRIER%2C_NO_UCH_SE_UCH_Oxzar_Amazing_Bel%E2%80%99s_Toffy_%2824310212305%29.jpg';
-                        document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=1977896&cid=42883&categoryId=44356';
-                        resultMessageOne = '요크셔테리어';
+                            'https://terms.naver.com/entry.nhn?docId=1307455&cid=40942&categoryId=32624';
+                        resultMessageOne = 'Vizsla dog';
                         resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
                         break;
                     default:
@@ -279,76 +245,31 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                     var labelTitleTwo;
                     var labelTitleThree;
                     switch (prediction[0].className) {
-                        case 'Bolognese':
-                            labelTitleOne = '볼로네즈';
+                        case 'Cairn Terrier dog':
+                            labelTitleOne = 'Cairn Terrier dog';
                             break;
-                        case 'Maltese':
-                            labelTitleOne = '말티즈';
-                            break;
-                        case 'Griffon Bruxellois':
-                            labelTitleOne = '그리폰 브뤼셀';
-                            break;
-                        case 'Australian Silky Terrier':
-                            labelTitleOne = '오스트레일리안 실키 테리어';
-                            break;
-                        case 'English Toy Terrier':
-                            labelTitleOne = '잉글리쉬 토이 테리어';
-                            break;
-                        case 'Russkiy Toy':
-                            labelTitleOne = '러시안 토이';
-                            break;
-                        case 'Yorkshire Terrier':
-                            labelTitleOne = '요크셔테리어';
+                        case 'Vizsla dog':
+                            labelTitleOne = 'Vizsla dog';
                             break;
                         default:
                             labelTitleOne = '-';
                     }
                     switch (prediction[1].className) {
-                        case 'Bolognese':
-                            labelTitleTwo = '볼로네즈';
+                        case 'Cairn Terrier dog':
+                            labelTitleTwo = 'Cairn Terrier dog';
                             break;
-                        case 'Maltese':
-                            labelTitleTwo = '말티즈';
-                            break;
-                        case 'Griffon Bruxellois':
-                            labelTitleTwo = '그리폰 브뤼셀';
-                            break;
-                        case 'Australian Silky Terrier':
-                            labelTitleTwo = '오스트레일리안 실키 테리어';
-                            break;
-                        case 'English Toy Terrier':
-                            labelTitleTwo = '잉글리쉬 토이 테리어';
-                            break;
-                        case 'Russkiy Toy':
-                            labelTitleTwo = '러시안 토이';
-                            break;
-                        case 'Yorkshire Terrier':
-                            labelTitleTwo = '요크셔테리어';
+                        case 'Vizsla dog':
+                            labelTitleTwo = 'Vizsla dog';
                             break;
                         default:
                             labelTitleTwo = '-';
                     }
                     switch (prediction[2].className) {
-                        case 'Bolognese':
-                            labelTitleThree = '볼로네즈';
+                        case 'Cairn Terrier dog':
+                            labelTitleThree = 'Cairn Terrier dog';
                             break;
-                        case 'Maltese':
-                            labelTitleThree = '말티즈';
-                            break;
-                        case 'Griffon Bruxellois':
-                            labelTitleThree = '그리폰 브뤼셀';
-                            break;
-                        case 'Australian Silky Terrier':
-                            labelTitleThree = '오스트레일리안 실키 테리어';
-                            break;
-                        case 'English Toy Terrier':
-                            labelTitleThree = '잉글리쉬 토이 테리어';
-                            break;
-                        case 'Russkiy Toy':
-                            labelTitleThree = '러시안 토이';
-                            break;
-                        case 'Yorkshire Terrier':
-                            labelTitleThree = '요크셔테리어';
+                        case 'Vizsla dog':
+                            labelTitleThree = 'Vizsla dog';
                             break;
                         default:
                             labelTitleThree = '-';
