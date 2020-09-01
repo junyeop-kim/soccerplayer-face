@@ -67,7 +67,8 @@
                 <img id="result-Image" src="" />
                 <br />
                 <p class="result-Message-Two"></p>
-                <a href="" id="result-link"><p class="result-Message-One"></p></a>
+                <br />
+                <p class="result-Message-One"></p>
                 <div id="label-container" class="d-flex flex-column justify-content-around"></div>
                 <script
                     type="text/javascript"
@@ -142,7 +143,6 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
-
                     reader.onload = function (e) {
                         $('.image-upload-wrap').hide();
                         $('#loading').show();
@@ -150,7 +150,6 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
                         $('.file-upload-content').show();
                         $('.image-title').html(input.files[0].name);
                     };
-
                     reader.readAsDataURL(input.files[0]);
                     init().then(() => {
                         console.log('Hello');
@@ -175,119 +174,1389 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
             });
         </script>
         <script type="text/javascript">
-            // More API functions here:
-            // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+                // More API functions here:
+                // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
-            // the link to your model provided by Teachable Machine export panel
-            const URL = 'https://teachablemachine.withgoogle.com/models/gHbfl3-AW/' && 'https://teachablemachine.withgoogle.com/models/845DwjFEd/' && 'https://teachablemachine.withgoogle.com/models/cHUgRERj-/' && 'https://teachablemachine.withgoogle.com/models/k89hG5ujt/' &&               'https://teachablemachine.withgoogle.com/models/LkWdBw4aV/' && 'https://teachablemachine.withgoogle.com/models/HaGLYkGqn/';
+                // the link to your model provided by Teachable Machine export panel
+                const URL = 'https://teachablemachine.withgoogle.com/models/gHbfl3-AW/' || 'https://teachablemachine.withgoogle.com/models/845DwjFEd/' || 'https://teachablemachine.withgoogle.com/models/cHUgRERj-/' || 'https://teachablemachine.withgoogle.com/models/k89hG5ujt/' || 'https://teachablemachine.withgoogle.com/models/LkWdBw4aV/' || 'https://teachablemachine.withgoogle.com/models/HaGLYkGqn/';
 
-            let model, labelContainer, maxPredictions;
+                let model, labelContainer, maxPredictions;
 
-            // Load the image model and setup the webcam
-            async function init() {
-                const modelURL = URL + 'model.json';
-                const metadataURL = URL + 'metadata.json';
-                // load the model and metadata
-                // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-                // or files from your local hard drive
-                // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
-                labelContainer = document.getElementById('label-container');
-                for (let i = 0; i < maxPredictions; i++) {
-                    // and class labels
-                    labelContainer.appendChild(document.createElement('div'));
-                }
-            }
-
-            // run the webcam image through the image model
-            async function predict() {
-                // predict can take in an image, video or canvas html element
-                var image = document.getElementById('face-image');
-                const prediction = await model.predict(image, false);
-                prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-                console.log(prediction[0].className);
-                var resultMessageOne, resultMessageTwo;
-                var resultImage;
-                switch (prediction[0].className) {
-                    case 'Cairn Terrier dog':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Bolognese_puppy.jpg/330px-Bolognese_puppy.jpg';
-                        document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=1307455&cid=40942&categoryId=32624';
-                        resultMessageOne = 'Cairn Terrier dog';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    case 'Vizsla dog':
-                        document.getElementById('result-Image').src =
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Bolognese_puppy.jpg/330px-Bolognese_puppy.jpg';
-                        document.getElementById('result-link').href =
-                            'https://terms.naver.com/entry.nhn?docId=1307455&cid=40942&categoryId=32624';
-                        resultMessageOne = 'Vizsla dog';
-                        resultMessageTwo = 'Image Source: https://upload.wikimedia.org';
-                        break;
-                    default:
-                        resultMessageOne =
-                            'We cannot find any soccer player. Please upload another image.';
-                }
-                $('.result-Message-Two').html(resultMessageTwo);
-                $('.result-Message-One').html(resultMessageOne);
-                var barWidth;
-                for (let i = 0; i < maxPredictions; i++) {
-                    if (prediction[i].probability.toFixed(2) > 0.1) {
-                        barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + '%';
-                    } else if (prediction[i].probability.toFixed(2) >= 0.01) {
-                        barWidth = '4%';
-                    } else {
-                        barWidth = '2%';
+                // Load the image model and setup the webcam
+                async function init() {
+                    const modelURL = URL + 'model.json';
+                    const metadataURL = URL + 'metadata.json';
+                    // load the model and metadata
+                    // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+                    // or files from your local hard drive
+                    // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+                    model = await tmImage.load(modelURL, metadataURL);
+                    maxPredictions = model.getTotalClasses();
+                    labelContainer = document.getElementById('label-container');
+                    for (let i = 0; i < maxPredictions; i++) {
+                        // and class labels
+                        labelContainer.appendChild(document.createElement('div'));
                     }
-                    var labelTitleOne;
-                    var labelTitleTwo;
-                    var labelTitleThree;
+                }
+
+                // run the webcam image through the image model
+                async function predict() {
+                    // predict can take in an image, video or canvas html element
+                    var image = document.getElementById('face-image');
+                    const prediction = await model.predict(image, false);
+                    prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+                    console.log(prediction[0].className);
+                    var resultMessageKo, resultMessageEn;
+                    var resultImage;
                     switch (prediction[0].className) {
-                        case 'Cairn Terrier dog':
-                            labelTitleOne = 'Cairn Terrier dog';
+                        case 'Afghan Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Afghane.jpg/330px-Afghane.jpg';
+                            resultMessageKo = '아프간 하운드';
+                            resultMessageEn = 'Afghan Hound';
                             break;
-                        case 'Vizsla dog':
-                            labelTitleOne = 'Vizsla dog';
+                        case 'Aidi dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Aidi.jpg/330px-Aidi.jpg';
+                            resultMessageKo = '에이디';
+                            resultMessageEn = 'Aidi';
+                            break;
+                        case 'Airedale Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/5/52/Airedale_Terrier.jpg';
+                            resultMessageKo = '에어데일 테리어';
+                            resultMessageEn = 'Airedale Terrier';
+                            break;
+                        case 'Akita dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Akita_Inu_dog.jpg/330px-Akita_Inu_dog.jpg';
+                            resultMessageKo = '아키타';
+                            resultMessageEn = 'Akita';
+                            break;
+                        case 'Alaskan Malamute dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alaskan_Malamute.jpg/450px-Alaskan_Malamute.jpg';
+                            resultMessageKo = '알래스칸 말라뮤트';
+                            resultMessageEn = 'Alaskan Malamute';
+                            break;
+                        case 'Alpine Dachsbracke dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Alpejski_go%C5%84czy_kr%C3%B3tkono%C5%BCny_g99.jpg/330px-Alpejski_go%C5%84czy_kr%C3%B3tkono%C5%BCny_g99.jpg';
+                            resultMessageKo = '알파인 닥스브라크';
+                            resultMessageEn = 'Alpine Dachsbracke';
+                            break;
+                        case 'American Akita dog':
+                            document.getElementById('result-Image').src =
+                                'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/13001904/Akita-On-White-01.jpg';
+                            resultMessageKo = '아메리칸 아키타';
+                            resultMessageEn = 'American Akita';
+                            break;
+                        case 'American Cocker Spaniel dog':
+                            document.getElementById('result-Image').src =
+                                'https://i.pinimg.com/564x/dc/b3/18/dcb318394e8d1b302b5b7509d3bfd707.jpg';
+                            resultMessageKo = '아메리칸 코카스파니엘';
+                            resultMessageEn = 'American Cocker Spaniel';
+                            break;
+                        case 'American Foxhound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/AmericanFoxhound2.jpg/330px-AmericanFoxhound2.jpg';
+                            resultMessageKo = '아메리칸 폭스하운드';
+                            resultMessageEn = 'American Foxhound';
+                            break;
+                        case 'American Water Spaniel dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Chien_d%27eau_americain_champion_1.JPG/330px-Chien_d%27eau_americain_champion_1.JPG';
+                            resultMessageKo = '아메리칸 워터 스패니얼';
+                            resultMessageEn = 'American Water Spaniel';
+                            break;
+                        case 'Appenzeller Sennenhund dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/9/9e/Dara_essy.jpg';
+                            resultMessageKo = '아펜젤러 세넨훈드';
+                            resultMessageEn = 'Appenzeller Sennenhund';
+                            break;
+                        case 'Ariege Pointer dog':
+                            document.getElementById('result-Image').src =
+                                'https://doglime.com/wp-content/uploads/2019/10/Ariege-Pointer-Information.jpg';
+                            resultMessageKo = '에리에지 포인터';
+                            resultMessageEn = 'Ariege Pointer';
+                            break;
+                        case 'Ariegeois dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Ariegeois.jpg/330px-Ariegeois.jpg';
+                            resultMessageKo = '아리에쥬아';
+                            resultMessageEn = 'Ariegeois';
+                            break;
+                        case 'Artois Hound Dog':
+                            document.getElementById('result-Image').src =
+                                'https://i.pinimg.com/564x/e3/b1/09/e3b10925629cf49865f984851f7a6fca.jpg';
+                            resultMessageKo = '아르토이스 하운드';
+                            resultMessageEn = 'Artois Hound';
+                            break;
+                        case 'Australian Kelpie dog':
+                            document.getElementById('result-Image').src =
+                                'https://i.pinimg.com/564x/69/d1/df/69d1dff17783e6c5c3e7a145a7419d95.jpg';
+                            resultMessageKo = '오스트레일리안 켈피';
+                            resultMessageEn = 'Australian Kelpie';
+                            break;
+                        case 'Australian Shepherd dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Redtriaussie01.jpg/330px-Redtriaussie01.jpg';
+                            resultMessageKo = '오스트레일리안 셰퍼드';
+                            resultMessageEn = 'Australian Shepherd';
+                            break;
+                        case 'Austrian Black and Tan Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://www.petguide.com/wp-content/uploads/2017/12/austrian-black-and-tan-hound-1-326x421.jpg';
+                            resultMessageKo = '오스트리안 블랙 앤 탄 하운드';
+                            resultMessageEn = 'Austrian Black and Tan Hound';
+                            break;
+                        case 'Austrian Pinscher dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Pinczer_austiacki_678.jpg/330px-Pinczer_austiacki_678.jpg';
+                            resultMessageKo = '오스트리안 핀셔';
+                            resultMessageEn = 'Austrian Pinscher';
+                            break;
+                        case 'Barak Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/BIR_Grupp_6-_BOSANSKI_OSTRODLAKI_GONIC-BARAK%2C_Sandy_%2823866392689%29.jpg/330px-BIR_Grupp_6-_BOSANSKI_OSTRODLAKI_GONIC-BARAK%2C_Sandy_%2823866392689%29.jpg';
+                            resultMessageKo = '버락 하운드';
+                            resultMessageEn = 'Barak Hound';
+                            break;
+                        case 'Basenji dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Basenji_Profile_%28loosercrop%29.jpg/330px-Basenji_Profile_%28loosercrop%29.jpg';
+                            resultMessageKo = '바센지';
+                            resultMessageEn = 'Basenji';
+                            break;
+                        case 'Basset Artesien Normand dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Grupp_6_BASSET_ART%C3%89SIEN_NORMAND%2C_Skogvaktarens_Queen_Sally_%2824180074612%29.jpg/330px-Grupp_6_BASSET_ART%C3%89SIEN_NORMAND%2C_Skogvaktarens_Queen_Sally_%2824180074612%29.jpg';
+                            resultMessageKo = '바셋 아르테지언 노르만드';
+                            resultMessageEn = 'Basset Artesien Normand';
+                            break;
+                        case 'Basset Bleu de Gascogne dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Basset_bleu_de_Gascogne.jpg/330px-Basset_bleu_de_Gascogne.jpg';
+                            resultMessageKo = '바셋 블루 데 가스코니';
+                            resultMessageEn = 'Basset Bleu de Gascogne';
+                            break;
+                        case 'Basset Fauve de Bretagne dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Basset_Fauve_de_Bretagne_600.jpg/330px-Basset_Fauve_de_Bretagne_600.jpg';
+                            resultMessageKo = '바셋 파프 데 브레타그네';
+                            resultMessageEn = 'Basset Fauve de Bretagne';
+                            break;
+                        case 'Basset Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/BassetHound_profil.jpg/330px-BassetHound_profil.jpg';
+                            resultMessageKo = '바셋 하운드';
+                            resultMessageEn = 'Basset Hound';
+                            break;
+                        case 'Bavarian Mountain Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Zoran_Spod_Ruskiej_Granicy_the_Bavarian_Mountain_Hound.jpg/330px-Zoran_Spod_Ruskiej_Granicy_the_Bavarian_Mountain_Hound.jpg';
+                            resultMessageKo = '아메리칸 아키타';
+                            resultMessageEn = 'Bavarian Mountain Hound';
+                            break;
+                        case 'Beagle dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Beagle_600.jpg/330px-Beagle_600.jpg';
+                            resultMessageKo = '비글';
+                            resultMessageEn = 'Beagle';
+                            break;
+                        case 'Beagle Harrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beagle_harrier.JPG/330px-Beagle_harrier.JPG';
+                            resultMessageKo = '비글 해리어';
+                            resultMessageEn = 'Beagle Harrier';
+                            break;
+                        case 'Bearded Collie dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Bearded_Collie_600.jpg/330px-Bearded_Collie_600.jpg';
+                            resultMessageKo = '버디드 콜리';
+                            resultMessageEn = 'Bearded Collie';
+                            break;
+                        case 'Bedlington Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Boutchie_apres_championnat_004.JPG/330px-Boutchie_apres_championnat_004.JPG';
+                            resultMessageKo = '베드링턴 테리어';
+                            resultMessageEn = 'Bedlington Terrier';
+                            break;
+                        case 'Belgian Shepherd dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Belgian_Groenendael_600.jpg/330px-Belgian_Groenendael_600.jpg';
+                            resultMessageKo = '벨기언 셰퍼드';
+                            resultMessageEn = 'Belgian Shepherd';
+                            break;
+                        case 'Bergamasco Shepherd dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Ortensia_di_Valle_Scrivia.jpg/330px-Ortensia_di_Valle_Scrivia.jpg';
+                            resultMessageKo = '베르가마스코 셰퍼드';
+                            resultMessageEn = 'Bergamasco Shepherd';
+                            break;
+                        case 'Berger Picard dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Picard_Delice_Stacked.jpg/330px-Picard_Delice_Stacked.jpg';
+                            resultMessageKo = '버거 피카드';
+                            resultMessageEn = 'Berger Picard';
+                            break;
+                        case 'Bichon Frise dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Bichon_Fris%C3%A9_-_studdogbichon.jpg/330px-Bichon_Fris%C3%A9_-_studdogbichon.jpg';
+                            resultMessageKo = '비숑 프리제';
+                            resultMessageEn = 'Bichon Frise';
+                            break;
+                        case 'Billy dog':
+                            document.getElementById('result-Image').src =
+                                'https://www.mascotarios.org/wp-content/uploads/2011/08/billy.jpg.webp';
+                            resultMessageKo = '빌리';
+                            resultMessageEn = 'Billy';
+                            break;
+                        case 'Black and Tan Coonhound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Black_and_Tan_Coonhound.jpg/330px-Black_and_Tan_Coonhound.jpg';
+                            resultMessageKo = '블랙 앤 탄 쿤하운드';
+                            resultMessageEn = 'Black and Tan Coonhound';
+                            break;
+                        case 'Black Russian Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/1/1a/Russianblack.jpg';
+                            resultMessageKo = '블랙 러시안 테리어';
+                            resultMessageEn = 'Black Russian Terrier';
+                            break;
+                        case 'Blood Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Bloodhound_Erland22.jpg/330px-Bloodhound_Erland22.jpg';
+                            resultMessageKo = '블러드 하운드';
+                            resultMessageEn = 'Blood Hound';
+                            break;
+                        case 'Blue Picardy Spaniel dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Epagneul_bleu_de_picardie_868.jpg/330px-Epagneul_bleu_de_picardie_868.jpg';
+                            resultMessageKo = '블루 피카디 스패니얼';
+                            resultMessageEn = 'Blue Picardy Spaniel';
+                            break;
+                        case 'bohemian Wirehaired Pointing Griffon dog':
+                            document.getElementById('result-Image').src =
+                                'https://www.petguide.com/wp-content/uploads/2018/05/bohemian-wirehaired-pointing-griffon.jpg';
+                            resultMessageKo = '보헤미안 포인팅 그리폰';
+                            resultMessageEn = 'Bohemian Wirehaired Pointing Griffon';
+                            break;
+                        case 'Border Collie dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/BORDER_COLLIE%2C_Simaro_Million_Dollar_Baby_%2824290879465%29_2.jpg/330px-BORDER_COLLIE%2C_Simaro_Million_Dollar_Baby_%2824290879465%29_2.jpg';
+                            resultMessageKo = '보더 콜리';
+                            resultMessageEn = 'Border Collie';
+                            break;
+                        case 'Border Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Border_Terrier.jpg/330px-Border_Terrier.jpg';
+                            resultMessageKo = '보더 테리어';
+                            resultMessageEn = 'Border Terrier';
+                            break;
+                        case 'Borzoi dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Chart_rosyjski_borzoj_rybnik-kamien_pl.jpg/330px-Chart_rosyjski_borzoj_rybnik-kamien_pl.jpg';
+                            resultMessageKo = '보르조이';
+                            resultMessageEn = 'Borzoi';
+                            break;
+                        case 'Boston Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Boston-terrier-carlos-de.JPG/330px-Boston-terrier-carlos-de.JPG';
+                            resultMessageKo = '보스턴 테리어';
+                            resultMessageEn = 'Boston Terrier';
+                            break;
+                        case 'Bouvier des Ardennes dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Bouvier_des_Ardennes.JPG/330px-Bouvier_des_Ardennes.JPG';
+                            resultMessageKo = '부비에 데 아르덴';
+                            resultMessageEn = 'Bouvier des Ardennes';
+                            break;
+                        case 'Bouvier des Flandres dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Bouvier.JPG/330px-Bouvier.JPG';
+                            resultMessageKo = '부비에 데 플랑드르';
+                            resultMessageEn = 'Bouvier des Flandres';
+                            break;
+                        case 'Boxer dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Male_fawn_Boxer_undocked.jpg/330px-Male_fawn_Boxer_undocked.jpg';
+                            resultMessageKo = '복서';
+                            resultMessageEn = 'Boxer';
+                            break;
+                        case 'Bracco dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Giotto_BI.jpg/330px-Giotto_BI.jpg';
+                            resultMessageKo = '브라꼬';
+                            resultMessageEn = 'Bracco';
+                            break;
+                        case 'Braque du Bourbonnais dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Braque_du_Bourbonnais.jpg/330px-Braque_du_Bourbonnais.jpg';
+                            resultMessageKo = '브라크 뒤 부르보네';
+                            resultMessageEn = 'Braque du Bourbonnais';
+                            break;
+                        case 'Braque Francais Dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Wy%C5%BCe%C5%82_Gasko%C5%84ski.jpg/330px-Wy%C5%BCe%C5%82_Gasko%C5%84ski.jpg';
+                            resultMessageKo = '브라크 프랑세';
+                            resultMessageEn = 'Braque Francais';
+                            break;
+                        case 'Braque Saint Germain dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Braque_saint-germain_666.jpg/330px-Braque_saint-germain_666.jpg';
+                            resultMessageKo = '브라크 셰인 저먼';
+                            resultMessageEn = 'Braque Saint Germain';
+                            break;
+                        case 'Brazilian Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/TerrierBrasileiroDaPedraFilosofal4colors.jpg/330px-TerrierBrasileiroDaPedraFilosofal4colors.jpg';
+                            resultMessageKo = '브라질리언 테리어';
+                            resultMessageEn = 'Brazilian Terrier';
+                            break;
+                        case 'Briard dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Briard_fauve.JPG/330px-Briard_fauve.JPG';
+                            resultMessageKo = '브리아드';
+                            resultMessageEn = 'Briard';
+                            break;
+                        case 'Briquet Griffon Vendeen dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Briquet_Griffon_Vendeen.jpg/330px-Briquet_Griffon_Vendeen.jpg';
+                            resultMessageKo = '브리케 그리퐁 방데앙';
+                            resultMessageEn = 'Briquet Griffon Vendeen';
+                            break;
+                        case 'Broholmer dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Male_Broholmer.jpg/330px-Male_Broholmer.jpg';
+                            resultMessageKo = '브로홀머';
+                            resultMessageEn = 'Broholmer';
+                            break;
+                        case 'Brussels Griffon dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/2/23/Monkey_Bizniz_Drama_Queen.jpg';
+                            resultMessageKo = '브뤼셀 그리폰';
+                            resultMessageEn = 'Brussels Griffon';
+                            break;
+                        case 'Bull dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Bulldog_adult_male.jpg/330px-Bulldog_adult_male.jpg';
+                            resultMessageKo = '불도그';
+                            resultMessageEn = 'Bull';
+                            break;
+                        case 'Bull Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/6/62/Bull_terrier_2.jpg';
+                            resultMessageKo = '불테리어';
+                            resultMessageEn = 'Bull Terrier';
+                            break;
+                        case 'Cairn Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cairn-Terrier-Garten1.jpg/330px-Cairn-Terrier-Garten1.jpg';
+                            resultMessageKo = '케언 테리어';
+                            resultMessageEn = 'Cairn Terrier';
+                            break;
+                        case 'Canaan dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/CanaanDogChakede.jpg/330px-CanaanDogChakede.jpg';
+                            resultMessageKo = '케이넌 도그';
+                            resultMessageEn = 'Canaan Dog';
+                            break;
+                        case 'Cane Corso dog':
+                            document.getElementById('result-Image').src =
+                                'https://i.pinimg.com/originals/a9/d3/21/a9d321dec2fba2c7665f923dabf7ed18.jpg';
+                            resultMessageKo = '카네 코르소';
+                            resultMessageEn = 'Cane Corso';
+                            break;
+                        case 'Carpathian Shepherd dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Carpatin.jpg/330px-Carpatin.jpg';
+                            resultMessageKo = '카르파티안 셰퍼드';
+                            resultMessageEn = 'Carpathian Shepherd';
+                            break;
+                        case 'Catalan Sheep dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Gos-d%27Atura-Catala.jpg/330px-Gos-d%27Atura-Catala.jpg';
+                            resultMessageKo = '카탈란 쉽독';
+                            resultMessageEn = 'Catalan Sheepdog';
+                            break;
+                        case 'Cesky Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Terier_czeski_suka_2009_pl2.jpg/330px-Terier_czeski_suka_2009_pl2.jpg';
+                            resultMessageKo = '체스키 테리어';
+                            resultMessageEn = 'Cesky Terrier';
+                            break;
+                        case 'Chesapeake Bay Retriever dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/CH_Chesapeake.jpg/330px-CH_Chesapeake.jpg';
+                            resultMessageKo = '체서피크 베이 리트리버';
+                            resultMessageEn = 'Chesapeake Bay Retriever';
+                            break;
+                        case 'Chien de franche Comte dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Porcelaine_2009_pl4.jpg/330px-Porcelaine_2009_pl4.jpg';
+                            resultMessageKo = '포르셀엔';
+                            resultMessageEn = 'Chien de franche Comte';
+                            break;
+                        case 'Chihuahua dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Chihuahua1_bvdb.jpg/330px-Chihuahua1_bvdb.jpg';
+                            resultMessageKo = '치와와';
+                            resultMessageEn = 'Chihuahua';
+                            break;
+                        case 'Chinese Crested dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/IndyStands.jpg/330px-IndyStands.jpg';
+                            resultMessageKo = '차이니즈 크레스티드';
+                            resultMessageEn = 'Chinese Crested';
+                            break;
+                        case 'Chow Chow dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/ChowChow2Szczecin.jpg/330px-ChowChow2Szczecin.jpg';
+                            resultMessageKo = '차우차우';
+                            resultMessageEn = 'Chow Chow';
+                            break;
+                        case 'Cimarron Uruguayo dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Cimarron.jpg/330px-Cimarron.jpg';
+                            resultMessageKo = '우루과이 시마론';
+                            resultMessageEn = 'Cimarron Uruguayo';
+                            break;
+                        case 'Cirneco DellEtna dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Cirneco_dell_Etna_611.jpg/330px-Cirneco_dell_Etna_611.jpg';
+                            resultMessageKo = '시르네코 델레트나';
+                            resultMessageEn = 'Cirneco DellEtna';
+                            break;
+                        case 'Clumber Spaniel dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Clumber_spaniel_rybnik_kamien_pppl.jpg/330px-Clumber_spaniel_rybnik_kamien_pppl.jpg';
+                            resultMessageKo = '클럼버 스파니엘';
+                            resultMessageEn = 'Clumber Spaniel';
+                            break;
+                        case 'Coarse haired Styrian Hound dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Steirische_Rauhhaarbracke.jpg/330px-Steirische_Rauhhaarbracke.jpg';
+                            resultMessageKo = '스타이리안 콜스 헤어드 하운드';
+                            resultMessageEn = 'Coarse haired Styrian Hound';
+                            break;
+                        case 'Coton de Tulear dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Coton_de_Tulear_Puppy.jpg/330px-Coton_de_Tulear_Puppy.jpg';
+                            resultMessageKo = '꼬똥 드 툴레아';
+                            resultMessageEn = 'Coton de Tulear';
+                            break;
+                        case 'Croatian Sheep dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Old_English_Sheepdog_%28side%29.jpg/330px-Old_English_Sheepdog_%28side%29.jpg';
+                            resultMessageKo = '크로아티안 쉽도그';
+                            resultMessageEn = 'Croatian Sheepdog';
+                            break;
+                        case 'Curly Coated Retriever dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Curly_Coated_Retriever.jpg/330px-Curly_Coated_Retriever.jpg';
+                            resultMessageKo = '컬리 코티드 리트리버';
+                            resultMessageEn = 'Curly Coated Retriever';
+                            break;
+                        case 'Czechoslovakian Wolf dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/TWH-jolly.JPG/330px-TWH-jolly.JPG';
+                            resultMessageKo = '체코슬로바키아 울프독';
+                            resultMessageEn = 'Czechoslovakian Wolf';
+                            break;
+                        case 'Dachshund dog':
+                            document.getElementById('result-Image').src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Short-haired-Dachshund.jpg/375px-Short-haired-Dachshund.jpg';
+                            resultMessageKo = '닥스 훈트';
+                            resultMessageEn = 'Dachshund';
+                            break;
+                        case 'Dalmatian dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Dalmatian_liver_stacked.jpg/600px-Dalmatian_liver_stacked.jpg';
+                            resultMessageKo = '달마시안';
+                            resultMessageEn = 'Dalmatian dog';
+                            break;
+                        case 'Dandie Dinmont Terrier dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Bonfire_Buddy.jpg/330px-Bonfire_Buddy.jpg';
+                            resultMessageKo = '댄디 딘몬트 테리어';
+                            resultMessageEn = 'Dandie Dinmont Terrier dog';
+                            break;
+                        case 'Danish Swedish Farm dog':
+                            document.getElementById('result-Image').src =
+                                'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/12205855/Danish-Swedish-Farmdog-on-White-01.jpg';
+                            resultMessageKo = '대니쉬 스웨디쉬 팜독';
+                            resultMessageEn = 'Danish Swedish Farm dog';
+                            break;
+                        case 'Deutsch Stichelhaar dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/03030288_Deutsch_Stichelhaa.jpg/330px-03030288_Deutsch_Stichelhaa.jpg';
+                            resultMessageKo = '스티첼할';
+                            resultMessageEn = 'Deutsch Stichelhaar';
+                            break;
+                        case 'Dobermann dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Dobermann_handling.jpg/330px-Dobermann_handling.jpg';
+                            resultMessageKo = '도베르만';
+                            resultMessageEn = 'Dobermann';
+                            break;
+                        case 'Dogo Argentino dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/0Dogo-argentino-22122251920.jpg/330px-0Dogo-argentino-22122251920.jpg';
+                            resultMessageKo = '도고 아르헨티노';
+                            resultMessageEn = 'Dogo Argentino';
+                            break;
+                        case 'Drentse Patrijshond dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Drentse_Patrijshond.jpg/330px-Drentse_Patrijshond.jpg';
+                            resultMessageKo = '드렌츠 패트리지';
+                            resultMessageEn = 'Drentse Patrijshond';
+                            break;
+                        case 'Drever dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Drever_NUCh_Tanjo.jpg/330px-Drever_NUCh_Tanjo.jpg';
+                            resultMessageKo = '드레버';
+                            resultMessageEn = 'Drever';
+                            break;
+                        case 'Dutch Shepherd dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Short-haired_Dutch_Shepherd%C2%A9CaroleField.jpg/330px-Short-haired_Dutch_Shepherd%C2%A9CaroleField.jpg';
+                            resultMessageKo = '더치 셰퍼드';
+                            resultMessageEn = 'Dutch Shepherd';
+                            break;
+                        case 'Dutch Smoushond dog':
+                            document.getElementById('result-Image').src =
+                                'https://upload.wikimedia.org/wikipedia/commons/7/70/Hollandse_Smoushond_Amsterdam_cropped.jpg';
+                            resultMessageKo = '더치 스모우스혼드';
+                            resultMessageEn = 'Dutch Smoushond';
                             break;
                         default:
-                            labelTitleOne = '-';
+                            resultMessageKo =
+                                'We cannot find any soccer player. Please upload another image.';
                     }
-                    switch (prediction[1].className) {
-                        case 'Cairn Terrier dog':
-                            labelTitleTwo = 'Cairn Terrier dog';
-                            break;
-                        case 'Vizsla dog':
-                            labelTitleTwo = 'Vizsla dog';
-                            break;
-                        default:
-                            labelTitleTwo = '-';
+                    $('.result-Message-Two').html(labelTitleOne);
+                    $('.result-Message-One').html(resultMessageEn);
+                    var barWidth;
+                    for (let i = 0; i < maxPredictions; i++) {
+                        if (prediction[i].probability.toFixed(2) > 0.1) {
+                            barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + '%';
+                        } else if (prediction[i].probability.toFixed(2) >= 0.01) {
+                            barWidth = '4%';
+                        } else {
+                            barWidth = '2%';
+                        }
+                        var labelTitleOne;
+                        var labelTitleTwo;
+                        var labelTitleThree;
+                        switch (prediction[0].className) {
+                            case 'Afghan Hound dog':
+                                labelTitleOne = '아프간 하운드';
+                                break;
+                            case 'Aidi dog':
+                                labelTitleOne = '에이디';
+                                break;
+                            case 'Airedale Terrier dog':
+                                labelTitleOne = '에어데일 테리어';
+                                break;
+                            case 'Akita dog':
+                                labelTitleOne = '아키타';
+                                break;
+                            case 'Alaskan Malamute dog':
+                                labelTitleOne = '알래스칸 말라뮤트';
+                                break;
+                            case 'Alpine Dachsbracke dog':
+                                labelTitleOne = '알파인 닥스브라크';
+                                break;
+                            case 'American Akita dog':
+                                labelTitleOne = '아메리칸 아키타';
+                                break;
+                            case 'American Cocker Spaniel dog':
+                                labelTitleOne = '아메리칸 코카스파니엘';
+                                break;
+                            case 'American Foxhound dog':
+                                labelTitleOne = '아메리칸 폭스하운드';
+                                break;
+                            case 'American Water Spaniel dog':
+                                labelTitleOne = '아메리칸 워터 스패니얼';
+                                break;
+                            case 'Appenzeller Sennenhund dog':
+                                labelTitleOne = '아펜젤러 세넨훈드';
+                                break;
+                            case 'Ariege Pointer dog':
+                                labelTitleOne = '에리에지 포인터';
+                                break;
+                            case 'Ariegeois dog':
+                                labelTitleOne = '아리에쥬아';
+                                break;
+                            case 'Artois Hound Dog':
+                                labelTitleOne = '아르토이스 하운드';
+                                break;
+                            case 'Australian Kelpie dog':
+                                labelTitleOne = '오스트레일리안 켈피';
+                                break;
+                            case 'Australian Shepherd dog':
+                                labelTitleOne = '오스트레일리안 셰퍼드';
+                                break;
+                            case 'Austrian Black and Tan Hound dog':
+                                labelTitleOne = '오스트리안 블랙 앤 탄 하운드';
+                                break;
+                            case 'Austrian Pinscher dog':
+                                labelTitleOne = '오스트리안 핀셔';
+                                break;
+                            case 'Barak Hound dog':
+                                labelTitleOne = '버락 하운드';
+                                break;
+                            case 'Basenji dog':
+                                labelTitleOne = '바센지';
+                                break;
+                            case 'Basset Artesien Normand dog':
+                                labelTitleOne = '바셋 아르테지언 노르만드';
+                                break;
+                            case 'Basset Bleu de Gascogne dog':
+                                labelTitleOne = '바셋 블루 데 가스코니';
+                                break;
+                            case 'Basset Fauve de Bretagne dog':
+                                labelTitleOne = '바셋 파프 데 브레타그네';
+                                break;
+                            case 'Basset Hound dog':
+                                labelTitleOne = '바셋 하운드';
+                                break;
+                            case 'Bavarian Mountain Hound dog':
+                                labelTitleOne = '아메리칸 아키타';
+                                break;
+                            case 'Beagle dog':
+                                labelTitleOne = '비글';
+                                break;
+                            case 'Beagle Harrier dog':
+                                labelTitleOne = '비글 해리어';
+                                break;
+                            case 'Bearded Collie dog':
+                                labelTitleOne = '버디드 콜리';
+                                break;
+                            case 'Bedlington Terrier dog':
+                                labelTitleOne = '베드링턴 테리어';
+                                break;
+                            case 'Belgian Shepherd dog':
+                                labelTitleOne = '벨기언 셰퍼드';
+                                break;
+                            case 'Bergamasco Shepherd dog':
+                                labelTitleOne = '베르가마스코 셰퍼드';
+                                break;
+                            case 'Berger Picard dog':
+                                labelTitleOne = '버거 피카드';
+                                break;
+                            case 'Bichon Frise dog':
+                                labelTitleOne = '비숑 프리제';
+                                break;
+                            case 'Billy dog':
+                                labelTitleOne = '빌리';
+                                break;
+                            case 'Black and Tan Coonhound dog':
+                                labelTitleOne = '블랙 앤 탄 쿤하운드';
+                                break;
+                            case 'Black Russian Terrier dog':
+                                labelTitleOne = '블랙 러시안 테리어';
+                                break;
+                            case 'Blood Hound dog':
+                                labelTitleOne = '블러드 하운드';
+                                break;
+                            case 'Blue Picardy Spaniel dog':
+                                labelTitleOne = '블루 피카디 스패니얼';
+                                break;
+                            case 'bohemian Wirehaired Pointing Griffon dog':
+                                labelTitleOne = '보헤미안 포인팅 그리폰';
+                                break;
+                            case 'Border Collie dog':
+                                labelTitleOne = '보더 콜리';
+                                break;
+                            case 'Border Terrier dog':
+                                labelTitleOne = '보더 테리어';
+                                break;
+                            case 'Borzoi dog':
+                                labelTitleOne = '보르조이';
+                                break;
+                            case 'Boston Terrier dog':
+                                labelTitleOne = '보스턴 테리어';
+                                break;
+                            case 'Bouvier des Ardennes dog':
+                                labelTitleOne = '부비에 데 아르덴';
+                                break;
+                            case 'Bouvier des Flandres dog':
+                                labelTitleOne = '부비에 데 플랑드르';
+                                break;
+                            case 'Boxer dog':
+                                labelTitleOne = '복서';
+                                break;
+                            case 'Bracco dog':
+                                labelTitleOne = '브라꼬';
+                                break;
+                            case 'Braque du Bourbonnais dog':
+                                labelTitleOne = '브라크 뒤 부르보네';
+                                break;
+                            case 'Braque Francais Dog':
+                                labelTitleOne = '브라크 프랑세';
+                                break;
+                            case 'Braque Saint Germain dog':
+                                labelTitleOne = '브라크 셰인 저먼';
+                                break;
+                            case 'Brazilian Terrier dog':
+                                labelTitleOne = '브라질리언 테리어';
+                                break;
+                            case 'Briard dog':
+                                labelTitleOne = '브리아드';
+                                break;
+                            case 'Briquet Griffon Vendeen dog':
+                                labelTitleOne = '브리케 그리퐁 방데앙';
+                                break;
+                            case 'Broholmer dog':
+                                labelTitleOne = '브로홀머';
+                                break;
+                            case 'Brussels Griffon dog':
+                                labelTitleOne = '브뤼셀 그리폰';
+                                break;
+                            case 'Bull dog':
+                                labelTitleOne = '불도그';
+                                break;
+                            case 'Bull Terrier dog':
+                                labelTitleOne = '불테리어';
+                                break;
+                            case 'Cairn Terrier dog':
+                                labelTitleOne = '케언 테리어';
+                                break;
+                            case 'Canaan dog':
+                                labelTitleOne = '케이넌 도그';
+                                break;
+                            case 'Cane Corso dog':
+                                labelTitleOne = '카네 코르소';
+                                break;
+                            case 'Carpathian Shepherd dog':
+                                labelTitleOne = '카르파티안 셰퍼드';
+                                break;
+                            case 'Catalan Sheep dog':
+                                labelTitleOne = '카탈란 쉽독';
+                                break;
+                            case 'Cesky Terrier dog':
+                                labelTitleOne = '체스키 테리어';
+                                break;
+                            case 'Chesapeake Bay Retriever dog':
+                                labelTitleOne = '체서피크 베이 리트리버';
+                                break;
+                            case 'Chien de franche Comte dog':
+                                labelTitleOne = '포르셀엔';
+                                break;
+                            case 'Chihuahua dog':
+                                labelTitleOne = '치와와';
+                                break;
+                            case 'Chinese Crested dog':
+                                labelTitleOne = '차이니즈 크레스티드';
+                                break;
+                            case 'Chow Chow dog':
+                                labelTitleOne = '차우차우';
+                                break;
+                            case 'Cimarron Uruguayo dog':
+                                labelTitleOne = '우루과이 시마론';
+                                break;
+                            case 'Cirneco DellEtna dog':
+                                labelTitleOne = '시르네코 델레트나';
+                                break;
+                            case 'Clumber Spaniel dog':
+                                labelTitleOne = '클럼버 스파니엘';
+                                break;
+                            case 'Coarse haired Styrian Hound dog':
+                                labelTitleOne = '스타이리안 콜스 헤어드 하운드';
+                                break;
+                            case 'Coton de Tulear dog':
+                                labelTitleOne = '꼬똥 드 툴레아';
+                                break;
+                            case 'Croatian Sheep dog':
+                                labelTitleOne = '크로아티안 쉽도그';
+                                break;
+                            case 'Curly Coated Retriever dog':
+                                labelTitleOne = '컬리 코티드 리트리버';
+                                break;
+                            case 'Czechoslovakian Wolf dog':
+                                labelTitleOne = '체코슬로바키아 울프독';
+                                break;
+                            case 'Dachshund dog':
+                                labelTitleOne = '닥스 훈트';
+                                break;
+                            case 'Dalmatian dog':
+                                labelTitleOne = '달마시안';
+                                break;
+                            case 'Dandie Dinmont Terrier dog':
+                                labelTitleOne = '댄디 딘몬트 테리어';
+                                break;
+                            case 'Danish Swedish Farm dog':
+                                labelTitleOne = '대니쉬 스웨디쉬 팜독';
+                                break;
+                            case 'Deutsch Stichelhaar dog':
+                                labelTitleOne = '스티첼할';
+                                break;
+                            case 'Dobermann dog':
+                                labelTitleOne = '도베르만';
+                                break;
+                            case 'Dogo Argentino dog':
+                                labelTitleOne = '도고 아르헨티노';
+                                break;
+                            case 'Drentse Patrijshond dog':
+                                labelTitleOne = '드렌츠 패트리지';
+                                break;
+                            case 'Drever dog':
+                                labelTitleOne = '드레버';
+                                break;
+                            case 'Dutch Shepherd dog':
+                                labelTitleOne = '더치 셰퍼드';
+                                break;
+                            case 'Dutch Smoushond dog':
+                                labelTitleOne = '더치 스모우스혼드';
+                                break;
+                            default:
+                                labelTitleOne = '-';
+                        }
+                        switch (prediction[1].className) {
+                            case 'Afghan Hound dog':
+                                labelTitleTwo = '아프간 하운드';
+                                break;
+                            case 'Aidi dog':
+                                labelTitleTwo = '에이디';
+                                break;
+                            case 'Airedale Terrier dog':
+                                labelTitleTwo = '에어데일 테리어';
+                                break;
+                            case 'Akita dog':
+                                labelTitleTwo = '아키타';
+                                break;
+                            case 'Alaskan Malamute dog':
+                                labelTitleTwo = '알래스칸 말라뮤트';
+                                break;
+                            case 'Alpine Dachsbracke dog':
+                                labelTitleTwo = '알파인 닥스브라크';
+                                break;
+                            case 'American Akita dog':
+                                labelTitleTwo = '아메리칸 아키타';
+                                break;
+                            case 'American Cocker Spaniel dog':
+                                labelTitleTwo = '아메리칸 코카스파니엘';
+                                break;
+                            case 'American Foxhound dog':
+                                labelTitleTwo = '아메리칸 폭스하운드';
+                                break;
+                            case 'American Water Spaniel dog':
+                                labelTitleTwo = '아메리칸 워터 스패니얼';
+                                break;
+                            case 'Appenzeller Sennenhund dog':
+                                labelTitleTwo = '아펜젤러 세넨훈드';
+                                break;
+                            case 'Ariege Pointer dog':
+                                labelTitleTwo = '에리에지 포인터';
+                                break;
+                            case 'Ariegeois dog':
+                                labelTitleTwo = '아리에쥬아';
+                                break;
+                            case 'Artois Hound Dog':
+                                labelTitleTwo = '아르토이스 하운드';
+                                break;
+                            case 'Australian Kelpie dog':
+                                labelTitleTwo = '오스트레일리안 켈피';
+                                break;
+                            case 'Australian Shepherd dog':
+                                labelTitleTwo = '오스트레일리안 셰퍼드';
+                                break;
+                            case 'Austrian Black and Tan Hound dog':
+                                labelTitleTwo = '오스트리안 블랙 앤 탄 하운드';
+                                break;
+                            case 'Austrian Pinscher dog':
+                                labelTitleTwo = '오스트리안 핀셔';
+                                break;
+                            case 'Barak Hound dog':
+                                labelTitleTwo = '버락 하운드';
+                                break;
+                            case 'Basenji dog':
+                                labelTitleTwo = '바센지';
+                                break;
+                            case 'Basset Artesien Normand dog':
+                                labelTitleTwo = '바셋 아르테지언 노르만드';
+                                break;
+                            case 'Basset Bleu de Gascogne dog':
+                                labelTitleTwo = '바셋 블루 데 가스코니';
+                                break;
+                            case 'Basset Fauve de Bretagne dog':
+                                labelTitleTwo = '바셋 파프 데 브레타그네';
+                                break;
+                            case 'Basset Hound dog':
+                                labelTitleTwo = '바셋 하운드';
+                                break;
+                            case 'Bavarian Mountain Hound dog':
+                                labelTitleTwo = '아메리칸 아키타';
+                                break;
+                            case 'Beagle dog':
+                                labelTitleTwo = '비글';
+                                break;
+                            case 'Beagle Harrier dog':
+                                labelTitleTwo = '비글 해리어';
+                                break;
+                            case 'Bearded Collie dog':
+                                labelTitleTwo = '버디드 콜리';
+                                break;
+                            case 'Bedlington Terrier dog':
+                                labelTitleTwo = '베드링턴 테리어';
+                                break;
+                            case 'Belgian Shepherd dog':
+                                labelTitleTwo = '벨기언 셰퍼드';
+                                break;
+                            case 'Bergamasco Shepherd dog':
+                                labelTitleTwo = '베르가마스코 셰퍼드';
+                                break;
+                            case 'Berger Picard dog':
+                                labelTitleTwo = '버거 피카드';
+                                break;
+                            case 'Bichon Frise dog':
+                                labelTitleTwo = '비숑 프리제';
+                                break;
+                            case 'Billy dog':
+                                labelTitleTwo = '빌리';
+                                break;
+                            case 'Black and Tan Coonhound dog':
+                                labelTitleTwo = '블랙 앤 탄 쿤하운드';
+                                break;
+                            case 'Black Russian Terrier dog':
+                                labelTitleTwo = '블랙 러시안 테리어';
+                                break;
+                            case 'Blood Hound dog':
+                                labelTitleTwo = '블러드 하운드';
+                                break;
+                            case 'Blue Picardy Spaniel dog':
+                                labelTitleTwo = '블루 피카디 스패니얼';
+                                break;
+                            case 'bohemian Wirehaired Pointing Griffon dog':
+                                labelTitleTwo = '보헤미안 포인팅 그리폰';
+                                break;
+                            case 'Border Collie dog':
+                                labelTitleTwo = '보더 콜리';
+                                break;
+                            case 'Border Terrier dog':
+                                labelTitleTwo = '보더 테리어';
+                                break;
+                            case 'Borzoi dog':
+                                labelTitleTwo = '보르조이';
+                                break;
+                            case 'Boston Terrier dog':
+                                labelTitleTwo = '보스턴 테리어';
+                                break;
+                            case 'Bouvier des Ardennes dog':
+                                labelTitleTwo = '부비에 데 아르덴';
+                                break;
+                            case 'Bouvier des Flandres dog':
+                                labelTitleTwo = '부비에 데 플랑드르';
+                                break;
+                            case 'Boxer dog':
+                                labelTitleTwo = '복서';
+                                break;
+                            case 'Bracco dog':
+                                labelTitleTwo = '브라꼬';
+                                break;
+                            case 'Braque du Bourbonnais dog':
+                                labelTitleTwo = '브라크 뒤 부르보네';
+                                break;
+                            case 'Braque Francais Dog':
+                                labelTitleTwo = '브라크 프랑세';
+                                break;
+                            case 'Braque Saint Germain dog':
+                                labelTitleTwo = '브라크 셰인 저먼';
+                                break;
+                            case 'Brazilian Terrier dog':
+                                labelTitleTwo = '브라질리언 테리어';
+                                break;
+                            case 'Briard dog':
+                                labelTitleTwo = '브리아드';
+                                break;
+                            case 'Briquet Griffon Vendeen dog':
+                                labelTitleTwo = '브리케 그리퐁 방데앙';
+                                break;
+                            case 'Broholmer dog':
+                                labelTitleTwo = '브로홀머';
+                                break;
+                            case 'Brussels Griffon dog':
+                                labelTitleTwo = '브뤼셀 그리폰';
+                                break;
+                            case 'Bull dog':
+                                labelTitleTwo = '불도그';
+                                break;
+                            case 'Bull Terrier dog':
+                                labelTitleTwo = '불테리어';
+                                break;
+                            case 'Cairn Terrier dog':
+                                labelTitleTwo = '케언 테리어';
+                                break;
+                            case 'Canaan dog':
+                                labelTitleTwo = '케이넌 도그';
+                                break;
+                            case 'Cane Corso dog':
+                                labelTitleTwo = '카네 코르소';
+                                break;
+                            case 'Carpathian Shepherd dog':
+                                labelTitleTwo = '카르파티안 셰퍼드';
+                                break;
+                            case 'Catalan Sheep dog':
+                                labelTitleTwo = '카탈란 쉽독';
+                                break;
+                            case 'Cesky Terrier dog':
+                                labelTitleTwo = '체스키 테리어';
+                                break;
+                            case 'Chesapeake Bay Retriever dog':
+                                labelTitleTwo = '체서피크 베이 리트리버';
+                                break;
+                            case 'Chien de franche Comte dog':
+                                labelTitleTwo = '포르셀엔';
+                                break;
+                            case 'Chihuahua dog':
+                                labelTitleTwo = '치와와';
+                                break;
+                            case 'Chinese Crested dog':
+                                labelTitleTwo = '차이니즈 크레스티드';
+                                break;
+                            case 'Chow Chow dog':
+                                labelTitleTwo = '차우차우';
+                                break;
+                            case 'Cimarron Uruguayo dog':
+                                labelTitleTwo = '우루과이 시마론';
+                                break;
+                            case 'Cirneco DellEtna dog':
+                                labelTitleTwo = '시르네코 델레트나';
+                                break;
+                            case 'Clumber Spaniel dog':
+                                labelTitleTwo = '클럼버 스파니엘';
+                                break;
+                            case 'Coarse haired Styrian Hound dog':
+                                labelTitleTwo = '스타이리안 콜스 헤어드 하운드';
+                                break;
+                            case 'Coton de Tulear dog':
+                                labelTitleTwo = '꼬똥 드 툴레아';
+                                break;
+                            case 'Croatian Sheep dog':
+                                labelTitleTwo = '크로아티안 쉽도그';
+                                break;
+                            case 'Curly Coated Retriever dog':
+                                labelTitleTwo = '컬리 코티드 리트리버';
+                                break;
+                            case 'Czechoslovakian Wolf dog':
+                                labelTitleTwo = '체코슬로바키아 울프독';
+                                break;
+                            case 'Dachshund dog':
+                                labelTitleTwo = '닥스 훈트';
+                                break;
+                            case 'Dalmatian dog':
+                                labelTitleTwo = '달마시안';
+                                break;
+                            case 'Dandie Dinmont Terrier dog':
+                                labelTitleTwo = '댄디 딘몬트 테리어';
+                                break;
+                            case 'Danish Swedish Farm dog':
+                                labelTitleTwo = '대니쉬 스웨디쉬 팜독';
+                                break;
+                            case 'Deutsch Stichelhaar dog':
+                                labelTitleTwo = '스티첼할';
+                                break;
+                            case 'Dobermann dog':
+                                labelTitleTwo = '도베르만';
+                                break;
+                            case 'Dogo Argentino dog':
+                                labelTitleTwo = '도고 아르헨티노';
+                                break;
+                            case 'Drentse Patrijshond dog':
+                                labelTitleTwo = '드렌츠 패트리지';
+                                break;
+                            case 'Drever dog':
+                                labelTitleTwo = '드레버';
+                                break;
+                            case 'Dutch Shepherd dog':
+                                labelTitleTwo = '더치 셰퍼드';
+                                break;
+                            case 'Dutch Smoushond dog':
+                                labelTitleTwo = '더치 스모우스혼드';
+                                break;
+                            default:
+                                labelTitleTwo = '-';
+                        }
+                        switch (prediction[2].className) {
+                            case 'Afghan Hound dog':
+                                labelTitleThree = '아프간 하운드';
+                                break;
+                            case 'Aidi dog':
+                                labelTitleThree = '에이디';
+                                break;
+                            case 'Airedale Terrier dog':
+                                labelTitleThree = '에어데일 테리어';
+                                break;
+                            case 'Akita dog':
+                                labelTitleThree = '아키타';
+                                break;
+                            case 'Alaskan Malamute dog':
+                                labelTitleThree = '알래스칸 말라뮤트';
+                                break;
+                            case 'Alpine Dachsbracke dog':
+                                labelTitleThree = '알파인 닥스브라크';
+                                break;
+                            case 'American Akita dog':
+                                labelTitleThree = '아메리칸 아키타';
+                                break;
+                            case 'American Cocker Spaniel dog':
+                                labelTitleThree = '아메리칸 코카스파니엘';
+                                break;
+                            case 'American Foxhound dog':
+                                labelTitleThree = '아메리칸 폭스하운드';
+                                break;
+                            case 'American Water Spaniel dog':
+                                labelTitleThree = '아메리칸 워터 스패니얼';
+                                break;
+                            case 'Appenzeller Sennenhund dog':
+                                labelTitleThree = '아펜젤러 세넨훈드';
+                                break;
+                            case 'Ariege Pointer dog':
+                                labelTitleThree = '에리에지 포인터';
+                                break;
+                            case 'Ariegeois dog':
+                                labelTitleThree = '아리에쥬아';
+                                break;
+                            case 'Artois Hound Dog':
+                                labelTitleThree = '아르토이스 하운드';
+                                break;
+                            case 'Australian Kelpie dog':
+                                labelTitleThree = '오스트레일리안 켈피';
+                                break;
+                            case 'Australian Shepherd dog':
+                                labelTitleThree = '오스트레일리안 셰퍼드';
+                                break;
+                            case 'Austrian Black and Tan Hound dog':
+                                labelTitleThree = '오스트리안 블랙 앤 탄 하운드';
+                                break;
+                            case 'Austrian Pinscher dog':
+                                labelTitleThree = '오스트리안 핀셔';
+                                break;
+                            case 'Barak Hound dog':
+                                labelTitleThree = '버락 하운드';
+                                break;
+                            case 'Basenji dog':
+                                labelTitleThree = '바센지';
+                                break;
+                            case 'Basset Artesien Normand dog':
+                                labelTitleThree = '바셋 아르테지언 노르만드';
+                                break;
+                            case 'Basset Bleu de Gascogne dog':
+                                labelTitleThree = '바셋 블루 데 가스코니';
+                                break;
+                            case 'Basset Fauve de Bretagne dog':
+                                labelTitleThree = '바셋 파프 데 브레타그네';
+                                break;
+                            case 'Basset Hound dog':
+                                labelTitleThree = '바셋 하운드';
+                                break;
+                            case 'Bavarian Mountain Hound dog':
+                                labelTitleThree = '아메리칸 아키타';
+                                break;
+                            case 'Beagle dog':
+                                labelTitleThree = '비글';
+                                break;
+                            case 'Beagle Harrier dog':
+                                labelTitleThree = '비글 해리어';
+                                break;
+                            case 'Bearded Collie dog':
+                                labelTitleThree = '버드 콜리';
+                                break;
+                            case 'Bedlington Terrier dog':
+                                labelTitleThree = '베드링턴 테리어';
+                                break;
+                            case 'Belgian Shepherd dog':
+                                labelTitleThree = '벨기언 셰퍼드';
+                                break;
+                            case 'Bergamasco Shepherd dog':
+                                labelTitleThree = '베르가마스코 셰퍼드';
+                                break;
+                            case 'Berger Picard dog':
+                                labelTitleThree = '버거 피카드';
+                                break;
+                            case 'Bichon Frise dog':
+                                labelTitleThree = '비숑 프리제';
+                                break;
+                            case 'Billy dog':
+                                labelTitleThree = '빌리';
+                                break;
+                            case 'Black and Tan Coonhound dog':
+                                labelTitleThree = '블랙 앤 탄 쿤하운드';
+                                break;
+                            case 'Black Russian Terrier dog':
+                                labelTitleThree = '블랙 러시안 테리어';
+                                break;
+                            case 'Blood Hound dog':
+                                labelTitleThree = '블러드 하운드';
+                                break;
+                            case 'Blue Picardy Spaniel dog':
+                                labelTitleThree = '블루 피카디 스패니얼';
+                                break;
+                            case 'bohemian Wirehaired Pointing Griffon dog':
+                                labelTitleThree = '보헤미안 포인팅 그리폰';
+                                break;
+                            case 'Border Collie dog':
+                                labelTitleThree = '보더 콜리';
+                                break;
+                            case 'Border Terrier dog':
+                                labelTitleThree = '보더 테리어';
+                                break;
+                            case 'Borzoi dog':
+                                labelTitleThree = '보르조이';
+                                break;
+                            case 'Boston Terrier dog':
+                                labelTitleThree = '보스턴 테리어';
+                                break;
+                            case 'Bouvier des Ardennes dog':
+                                labelTitleThree = '부비에 데 아르덴';
+                                break;
+                            case 'Bouvier des Flandres dog':
+                                labelTitleThree = '부비에 데 플랑드르';
+                                break;
+                            case 'Boxer dog':
+                                labelTitleThree = '복서';
+                                break;
+                            case 'Bracco dog':
+                                labelTitleThree = '브라꼬';
+                                break;
+                            case 'Braque du Bourbonnais dog':
+                                labelTitleThree = '브라크 뒤 부르보네';
+                                break;
+                            case 'Braque Francais Dog':
+                                labelTitleThree = '브라크 프랑세';
+                                break;
+                            case 'Braque Saint Germain dog':
+                                labelTitleThree = '브라크 셰인 저먼';
+                                break;
+                            case 'Brazilian Terrier dog':
+                                labelTitleThree = '브라질리언 테리어';
+                                break;
+                            case 'Briard dog':
+                                labelTitleThree = '브리아드';
+                                break;
+                            case 'Briquet Griffon Vendeen dog':
+                                labelTitleThree = '브리케 그리퐁 방데앙';
+                                break;
+                            case 'Broholmer dog':
+                                labelTitleThree = '브로홀머';
+                                break;
+                            case 'Brussels Griffon dog':
+                                labelTitleThree = '브뤼셀 그리폰';
+                                break;
+                            case 'Bull dog':
+                                labelTitleThree = '불도그';
+                                break;
+                            case 'Bull Terrier dog':
+                                labelTitleThree = '불테리어';
+                                break;
+                            case 'Cairn Terrier dog':
+                                labelTitleThree = '케언 테리어';
+                                break;
+                            case 'Canaan dog':
+                                labelTitleThree = '케이넌 도그';
+                                break;
+                            case 'Cane Corso dog':
+                                labelTitleThree = '카네 코르소';
+                                break;
+                            case 'Carpathian Shepherd dog':
+                                labelTitleThree = '카르파티안 셰퍼드';
+                                break;
+                            case 'Catalan Sheep dog':
+                                labelTitleThree = '카탈란 쉽독';
+                                break;
+                            case 'Cesky Terrier dog':
+                                labelTitleThree = '체스키 테리어';
+                                break;
+                            case 'Chesapeake Bay Retriever dog':
+                                labelTitleThree = '체서피크 베이 리트리버';
+                                break;
+                            case 'Chien de franche Comte dog':
+                                labelTitleThree = '포르셀엔';
+                                break;
+                            case 'Chihuahua dog':
+                                labelTitleThree = '치와와';
+                                break;
+                            case 'Chinese Crested dog':
+                                labelTitleThree = '차이니즈 크레스티드';
+                                break;
+                            case 'Chow Chow dog':
+                                labelTitleThree = '차우차우';
+                                break;
+                            case 'Cimarron Uruguayo dog':
+                                labelTitleThree = '우루과이 시마론';
+                                break;
+                            case 'Cirneco DellEtna dog':
+                                labelTitleThree = '시르네코 델레트나';
+                                break;
+                            case 'Clumber Spaniel dog':
+                                labelTitleThree = '클럼버 스파니엘';
+                                break;
+                            case 'Coarse haired Styrian Hound dog':
+                                labelTitleThree = '스타이리안 콜스 헤어드 하운드';
+                                break;
+                            case 'Coton de Tulear dog':
+                                labelTitleThree = '꼬똥 드 툴레아';
+                                break;
+                            case 'Croatian Sheep dog':
+                                labelTitleThree = '크로아티안 쉽도그';
+                                break;
+                            case 'Curly Coated Retriever dog':
+                                labelTitleThree = '컬리 코티드 리트리버';
+                                break;
+                            case 'Czechoslovakian Wolf dog':
+                                labelTitleThree = '체코슬로바키아 울프독';
+                                break;
+                            case 'Dachshund dog':
+                                labelTitleThree = '닥스 훈트';
+                                break;
+                            case 'Dalmatian dog':
+                                labelTitleThree = '달마시안';
+                                break;
+                            case 'Dandie Dinmont Terrier dog':
+                                labelTitleThree = '댄디 딘몬트 테리어';
+                                break;
+                            case 'Danish Swedish Farm dog':
+                                labelTitleThree = '대니쉬 스웨디쉬 팜독';
+                                break;
+                            case 'Deutsch Stichelhaar dog':
+                                labelTitleThree = '스티첼할';
+                                break;
+                            case 'Dobermann dog':
+                                labelTitleThree = '도베르만';
+                                break;
+                            case 'Dogo Argentino dog':
+                                labelTitleThree = '도고 아르헨티노';
+                                break;
+                            case 'Drentse Patrijshond dog':
+                                labelTitleThree = '드렌츠 패트리지';
+                                break;
+                            case 'Drever dog':
+                                labelTitleThree = '드레버';
+                                break;
+                            case 'Dutch Shepherd dog':
+                                labelTitleThree = '더치 셰퍼드';
+                                break;
+                            case 'Dutch Smoushond dog':
+                                labelTitleThree = '더치 스모우스혼드';
+                                break;
+                            default:
+                                labelTitleThree = '-';
+                        }
+                        var labelOne = "<div class='one-similar'>" + '1st. ' + labelTitleOne;
+                        var percentOne =
+                            Math.round(prediction[0].probability.toFixed(2) * 100) + '%' + '</div>';
+                        var labelTwo = "<div class='two-similar'>" + '2nd. ' + labelTitleTwo;
+                        var percentTwo =
+                            Math.round(prediction[1].probability.toFixed(2) * 100) + '%' + '</div>';
+                        var labelThree = "<div class='three-similar'>" + '3rd. ' + labelTitleThree;
+                        var percentThree =
+                            Math.round(prediction[2].probability.toFixed(2) * 100) + '%' + '</div>';
+                        labelContainer.childNodes[0].innerHTML = labelOne + ' ' + percentOne;
+                        labelContainer.childNodes[1].innerHTML = labelTwo + ' ' + percentTwo;
+                        labelContainer.childNodes[2].innerHTML = labelThree + ' ' + percentThree;
                     }
-                    switch (prediction[2].className) {
-                        case 'Cairn Terrier dog':
-                            labelTitleThree = 'Cairn Terrier dog';
-                            break;
-                        case 'Vizsla dog':
-                            labelTitleThree = 'Vizsla dog';
-                            break;
-                        default:
-                            labelTitleThree = '-';
-                    }
-                    var labelOne = "<div class='one-similar'>" + '1st. ' + labelTitleOne;
-                    var percentOne =
-                        Math.round(prediction[0].probability.toFixed(2) * 100) + '%' + '</div>';
-                    var labelTwo = "<div class='two-similar'>" + '2nd. ' + labelTitleTwo;
-                    var percentTwo =
-                        Math.round(prediction[1].probability.toFixed(2) * 100) + '%' + '</div>';
-                    var labelThree = "<div class='three-similar'>" + '3rd. ' + labelTitleThree;
-                    var percentThree =
-                        Math.round(prediction[2].probability.toFixed(2) * 100) + '%' + '</div>';
-                    labelContainer.childNodes[0].innerHTML = labelOne + ' ' + percentOne;
-                    labelContainer.childNodes[1].innerHTML = labelTwo + ' ' + percentTwo;
-                    labelContainer.childNodes[2].innerHTML = labelThree + ' ' + percentThree;
                 }
-            }
         </script>
     </body>
     <!--Copyright (c) 2020 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
